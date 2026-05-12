@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#f8f8f8;font-family:system-ui,sans-serif;}
+.nw{padding:12px 16px 0;position:sticky;top:0;z-index:50;}
+.nav{background:#c0166e;display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:60px;border-radius:12px;box-shadow:0 4px 20px rgba(192,22,110,.25);}
+.nr{display:flex;align-items:center;gap:10px;}
+.nib{width:46px;height:46px;border-radius:50%;border:1.5px solid;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;}
+.nib.y{background:#fc0;border-color:#d0a600;box-shadow:0 2px 0 #d0a600;}
+.nib.p{background:#d850aa;border-color:#af3285;box-shadow:0 2px 0 #af3285;}
+.nib svg{width:20px;height:20px;flex-shrink:0;}
+.nbadge{position:absolute;top:-3px;right:-3px;background:#fff6d3;border:1.5px solid #d0a600;border-radius:20px;font-size:10px;font-weight:700;color:#333;padding:0 5px;line-height:17px;min-width:17px;text-align:center;}
+.nu{background:#d850aa;border:1.5px solid #af3285;border-radius:40px;height:46px;padding:4px 14px 4px 4px;display:flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 2px 0 #af3285;}
+.nua{width:36px;height:36px;border-radius:50%;background:#d4b8ea;border:1.5px solid #af3285;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.hero{text-align:center;padding:24px 0 16px;}
+.hava{width:80px;height:80px;border-radius:50%;background:#e7e1ff;border:3px solid white;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 0 0 3px #c0166e;}
+.main{padding:0 16px 100px;}
+.dg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;max-width:1200px;margin:0 auto;}
+@media (max-width:900px){.dg{grid-template-columns:1fr 1fr;}}
+@media (max-width:600px){.dg{grid-template-columns:1fr;}}
+.card{background:white;border-radius:12px;border:1px solid rgba(0,0,0,.1);padding:20px;box-shadow:0 1px 5px rgba(0,0,0,.05);}
+
+/* ===== Onboarding nudges ===== */
+.nudge-pill{display:inline-flex;align-items:center;gap:6px;background:#fff0f8;border:1.5px solid #ffcded;color:#c0166e;font-family:'Mulish',sans-serif;font-weight:800;font-size:12px;padding:6px 12px;border-radius:200px;cursor:pointer;margin-top:8px;animation:nudge-pulse 2s ease-in-out infinite;transition:transform .15s,box-shadow .15s;}
+.nudge-pill:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(192,22,110,.15);}
+@keyframes nudge-pulse{0%,100%{box-shadow:0 0 0 0 rgba(192,22,110,.35);}50%{box-shadow:0 0 0 6px rgba(192,22,110,0);}}
+
+.nudge-banner{display:flex;align-items:center;gap:8px;background:#fff0f8;border:1px solid #ffcded;border-radius:10px;padding:9px 12px;font-family:'Mulish',sans-serif;font-size:12px;font-weight:600;color:#7a0f44;line-height:1.4;margin-bottom:12px;}
+.nudge-banner-ico{font-size:16px;flex-shrink:0;}
+
+.qz-start-here{position:absolute;top:-1px;right:-1px;background:#c0166e;color:white;font-family:'Mulish',sans-serif;font-weight:800;font-size:10px;padding:3px 10px 3px 8px;border-radius:0 10px 0 10px;letter-spacing:0.3px;display:flex;align-items:center;gap:3px;z-index:2;}
+.qzcard{position:relative;}
+
+/* ===== Marketplace card (dashboard) ===== */
+.mkt-strip{display:flex;gap:8px;margin-bottom:12px;}
+.mkt-prev{flex:1;display:flex;flex-direction:column;gap:4px;cursor:pointer;}
+.mkt-prev-img{width:100%;aspect-ratio:1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:32px;}
+.mkt-prev-name{font-family:'Mulish',sans-serif;font-size:11px;font-weight:700;color:#1e1e1e;line-height:1.2;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mkt-prev-price{font-family:'Mulish',sans-serif;font-size:11px;font-weight:800;color:#c0166e;text-align:center;}
+.mkt-card-empty{text-align:center;padding:14px 6px 10px;}
+.mkt-card-empty-ico{font-size:24px;margin-bottom:4px;}
+.mkt-card-empty-msg{font-family:'Mulish',sans-serif;font-size:12px;color:#888;line-height:1.4;}
+
+/* ===== Wardrobe strip (post-purchase state) ===== */
+.wardrobe-strip{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.wardrobe-item{width:54px;aspect-ratio:1;border-radius:10px;background:#f7f7f7;border:1.5px solid #eee;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.wardrobe-item img{width:100%;height:100%;object-fit:cover;}
+.wardrobe-more{width:54px;aspect-ratio:1;border-radius:10px;background:#fff0f8;border:1.5px dashed #ffcded;display:flex;align-items:center;justify-content:center;font-family:'Mulish',sans-serif;font-weight:800;font-size:12px;color:#c0166e;}
+
+/* ===== Purchase confirmation modal ===== */
+.buy-modal-card{padding:20px 18px;text-align:center;}
+.buy-modal-img{width:120px;height:120px;border-radius:14px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:60px;}
+.buy-modal-name{font-family:'Mulish',sans-serif;font-weight:900;font-size:18px;color:#1e1e1e;margin-bottom:4px;}
+.buy-modal-price{font-family:'Mulish',sans-serif;font-weight:800;font-size:22px;color:#c0166e;margin-bottom:12px;}
+.buy-modal-bal{font-family:'Mulish',sans-serif;font-size:13px;color:#666;margin-bottom:18px;}
+.buy-modal-bal strong{color:#1a8c4e;font-weight:800;}
+.buy-modal-bal.afford-no strong{color:#c92626;}
+.buy-modal-actions{display:flex;gap:10px;}
+.buy-modal-actions button{flex:1;padding:12px;border-radius:10px;border:none;font-family:'Mulish',sans-serif;font-weight:800;font-size:14px;cursor:pointer;}
+.buy-modal-cancel{background:#f0f0f0;color:#555;}
+.buy-modal-cancel:hover{background:#e5e5e5;}
+.buy-modal-confirm{background:#c0166e;color:white;}
+.buy-modal-confirm:hover{background:#a0104e;}
+.buy-modal-confirm:disabled{background:#ddd;color:#aaa;cursor:not-allowed;}
+
+.buy-success{text-align:center;padding:24px 18px;}
+.buy-success-ico{font-size:54px;margin-bottom:10px;}
+.buy-success-t{font-family:'Mulish',sans-serif;font-weight:900;font-size:18px;color:#1e1e1e;margin-bottom:4px;}
+.buy-success-s{font-family:'Mulish',sans-serif;font-size:13px;color:#666;margin-bottom:18px;line-height:1.5;}
+.buy-success-actions{display:flex;gap:8px;flex-direction:column;}
+.buy-success-actions button{padding:11px;border-radius:9px;border:none;font-family:'Mulish',sans-serif;font-weight:800;font-size:13px;cursor:pointer;}
+.buy-success-equip{background:#c0166e;color:white;}
+.buy-success-equip:hover{background:#a0104e;}
+.buy-success-keep{background:#f0f0f0;color:#555;}
+.buy-success-keep:hover{background:#e5e5e5;}
+.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.ct{font-size:17px;font-weight:900;color:#1e1e1e;display:flex;align-items:center;gap:8px;}
+.ct svg{width:20px;height:20px;flex-shrink:0;opacity:.8;}
+.ca{color:#555;font-size:14px;cursor:pointer;border:none;background:none;padding:2px 6px;border-radius:5px;opacity:.5;}
+.ca:hover{opacity:1;}
+.qdot{background:#c0166e;color:white;border-radius:10px;font-size:9px;font-weight:700;padding:1px 5px;line-height:1.5;}
+.bl{text-align:center;padding:12px 0 4px;}
+.bli{font-size:24px;margin-bottom:4px;}
+.blm{font-size:12px;color:#bbb;line-height:1.5;}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.bt{border-radius:10px;padding:10px;cursor:pointer;}
+.bt.ev{background:#fff1fa;border:1px solid #ffcded;box-shadow:0 2px 0 #ffcded;}
+.bt.sv{background:#f0f1ff;border:1px solid #bec2ff;box-shadow:0 2px 0 #bec2ff;}
+.bti{font-size:16px;margin-bottom:2px;}
+.bta{font-size:13px;font-weight:700;color:#333;}
+.btl{font-size:10px;color:#666;}
+.ob{width:100%;background:#c0166e;color:white;border:none;border-radius:8px;padding:8px;font-size:13px;font-weight:700;cursor:pointer;}
+.ob:hover{background:#a0104e;}
+.jce{border:1.5px dashed #f4c0d4;border-radius:9px;padding:14px;text-align:center;}
+.jci{font-size:24px;margin-bottom:5px;}
+.jcm{font-size:12px;color:#bbb;line-height:1.5;margin-bottom:8px;}
+.jcf{border-radius:9px;padding:10px;background:#fff1fa;border:1px solid #ffcded;}
+.jct{display:flex;align-items:center;gap:9px;margin-bottom:7px;}
+.ji{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.jtt{font-size:13px;font-weight:800;color:#1a1a1a;}
+.jw{font-size:11px;color:#888;}
+.jnp{display:flex;align-items:center;justify-content:space-between;background:white;border-radius:7px;padding:6px 9px;border:.5px solid #f4c0d4;}
+.jnl{font-size:10px;color:#999;}
+.jna{font-size:12px;font-weight:800;color:#1a8c4e;}
+.qsl{font-size:10px;font-weight:800;color:#bbb;letter-spacing:.4px;text-transform:uppercase;margin:10px 0 6px;}
+.qsl:first-child{margin-top:0;}
+.ql{display:flex;flex-direction:column;gap:6px;}
+.qr{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:9px;border:1.5px solid #eee;background:white;cursor:pointer;}
+.qr:hover{border-color:#c0166e;background:#fff8fc;}
+.qr.done{background:#f6fbf0;border-color:#b8e0a0;cursor:default;}
+.qi{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.qi.p{background:#fbeaf0;}.qi.b{background:#e8f4ff;}.qi.g{background:#eaf7ee;}.qi.a{background:#fef5e0;}
+.qm{flex:1;min-width:0;}
+.qtit{font-size:12px;font-weight:800;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.qsub{font-size:10px;color:#999;}
+.qrew{font-size:10px;font-weight:800;color:#1a8c4e;background:#eaf7ee;padding:2px 6px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.qdone{font-size:10px;font-weight:800;color:#3b6d11;background:#c0dd97;padding:2px 6px;border-radius:20px;flex-shrink:0;}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-start;justify-content:center;z-index:300;padding:20px 0;}
+.ov.cen{align-items:center;}
+.ov.hidden{display:none;}
+.mp{width:340px;height:580px;background:white;border-radius:28px;border:4px solid #1a1a1a;overflow:hidden;display:flex;flex-direction:column;}
+.ml{width:min(1264px,calc(100vw - 32px));height:calc(100vh - 40px);background:white;border-radius:16px;border:4px solid #1a1a1a;overflow:hidden;display:flex;flex-direction:column;}
+.mh{display:flex;align-items:center;justify-content:space-between;padding:13px 15px 10px;border-bottom:.5px solid #eee;flex-shrink:0;}
+.mhtit{font-size:14px;font-weight:800;color:#1a1a1a;flex:1;}
+.mx{background:none;border:none;font-size:17px;cursor:pointer;color:#888;padding:2px 6px;border-radius:6px;}
+.mx:hover{background:#f0f0f0;}
+.mbk{background:none;border:none;font-size:13px;font-weight:700;color:#c0166e;cursor:pointer;padding:2px 8px;border-radius:6px;margin-right:4px;}
+.mbk:hover{background:#fbeaf0;}
+.mb{flex:1;overflow-y:auto;padding:13px 15px;}
+.mf{display:flex;border-top:.5px solid #eee;flex-shrink:0;}
+.mt{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 0;font-size:10px;color:#aaa;cursor:pointer;border:none;background:none;font-weight:700;text-transform:uppercase;}
+.mt.active{color:#c0166e;}
+.mt svg{width:16px;height:16px;}
+.bkaccs{display:flex;gap:12px;padding:16px;justify-content:center;}
+.bkacc-ev{width:180px;height:120px;border-radius:12px;background:#fff1fa;border:1px solid #ffcded;box-shadow:0 2px 0 #ffcded;overflow:hidden;position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;flex-shrink:0;}
+.bkacc-ev:hover{opacity:.9;}
+.bkacc-ev-amt{font-size:20px;font-weight:600;color:#333;position:relative;z-index:2;}
+.bkacc-ev-lbl{font-size:14px;color:#666;position:relative;z-index:2;}
+.bkacc-ev-img{position:absolute;bottom:-26px;left:-77px;width:141px;height:141px;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:1;}
+.bkacc-sv{width:180px;height:120px;border-radius:12px;background:white;border:1px solid #e6e6e6;box-shadow:0 2px 0 #e6e6e6;overflow:hidden;position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;flex-shrink:0;padding:16px;}
+.bkacc-sv.active{background:#f0f1ff;border-color:#bec2ff;box-shadow:0 2px 0 #bec2ff;}
+.bkacc-sv-plus{width:30px;height:30px;border-radius:30px;background:white;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:300;color:#555;line-height:1;position:relative;z-index:2;}
+.bkacc-sv-lbl{font-size:14px;color:#666;text-align:center;line-height:1.4;position:relative;z-index:2;}
+.bkacc-sv-img{position:absolute;bottom:12px;left:50%;transform:translateX(-20%) rotate(15deg) skewX(-3.5deg);width:65px;opacity:.85;pointer-events:none;z-index:1;}
+.bkacc-sv-amt{font-size:20px;font-weight:600;color:#333;position:relative;z-index:2;}
+/* bank header */
+.bkhdr{display:flex;align-items:center;justify-content:center;position:relative;padding:18px 50px;border-bottom:.5px solid #f0f0f0;flex-shrink:0;}
+.bkhdr-title{font-size:18px;font-weight:900;color:#1e1e1e;text-align:center;}
+.bkhdr-close{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:17px;cursor:pointer;color:#888;padding:4px 6px;border-radius:6px;}
+.bkhdr-close:hover{background:#f0f0f0;}
+/* bottom nav */
+.bkfoot{display:flex;gap:4px;padding:0 8px 8px;border-top:.5px solid #f0f0f0;background:white;flex-shrink:0;}
+.bkftab{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:11px 4px;border-radius:12px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:500;color:#666;transition:all .15s;}
+.bkftab.active{background:#fff4fb;border-radius:12px 12px 25px 12px;color:#c0166e;}
+.bkftab svg{width:22px;height:22px;}
+.mkb{flex:1;overflow-y:auto;padding:20px 24px;}
+.msc{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
+.mscc{background:white;border:1.5px solid #d9d9d9;border-radius:12px;padding:14px 14px 14px 0;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,.05);display:flex;align-items:center;min-height:72px;}
+.mscc:hover{box-shadow:0 2px 8px rgba(0,0,0,.1);}
+.mscc.active{border-color:#c0166e;box-shadow:0 2px 4px rgba(204,51,153,.15);}
+.mscc.lk{cursor:default;opacity:.7;}
+.msci{width:80px;height:64px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:32px;}
+.msct{font-size:15px;font-weight:700;color:#333;margin-bottom:1px;}
+.mscs{font-size:12px;color:#888;line-height:1.4;}
+.mscl{position:absolute;top:8px;right:8px;font-size:13px;color:#bbb;}
+.mcon{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:8px;}
+.mct{display:flex;gap:5px;flex-wrap:wrap;flex:1;}
+.mctb{padding:7px 14px;border-radius:200px;font-size:13px;font-weight:600;border:1px solid #d9d9d9;background:white;cursor:pointer;color:#333;box-shadow:0 2px 4px rgba(0,0,0,.05);}
+.mctb.active{background:#c0166e;border-color:#c0166e;color:white;}
+.msrt{padding:7px 12px;border-radius:8px;font-size:13px;font-weight:500;border:1px solid #d9d9d9;background:white;color:#333;box-shadow:0 2px 4px rgba(0,0,0,.05);display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.mlay{display:flex;gap:20px;align-items:flex-start;}
+.msb{width:200px;flex-shrink:0;background:white;border-radius:12px;border:1px solid rgba(0,0,0,.1);padding:18px;box-shadow:0 1px 5px rgba(0,0,0,.05);}
+.msbt{font-size:16px;font-weight:700;color:#1e1e1e;margin-bottom:14px;}
+.mcbr{display:flex;align-items:center;gap:9px;margin-bottom:8px;cursor:pointer;}
+.mcb{width:18px;height:18px;border-radius:6px;border:2px solid #d9d9d9;background:white;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;}
+.mcb.on{background:#c0166e;border-color:#c0166e;}
+.mcbl{font-size:14px;font-weight:500;color:#333;}
+.mgr{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.mprd{background:white;border-radius:12px;border:1px solid #d9d9d9;overflow:hidden;cursor:pointer;box-shadow:0 1px 5px rgba(0,0,0,.05);position:relative;}
+.mprd:hover{box-shadow:0 3px 10px rgba(0,0,0,.1);}
+.mpri{width:100%;aspect-ratio:5/3;display:flex;align-items:center;justify-content:center;font-size:44px;border-radius:0 0 16px 16px;}
+.mprb{padding:10px 14px 14px;text-align:center;}
+.mprn{font-size:14px;font-weight:700;color:#1e1e1e;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mbb{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:8px;border:1px solid #d9d9d9;background:white;font-size:13px;font-weight:500;color:#333;cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,.05);}
+.mbb:hover{border-color:#c0166e;color:#c0166e;}
+.mbb .orig{text-decoration:line-through;color:#999;margin-right:2px;}
+.msl{position:absolute;top:8px;right:8px;background:#c0166e;color:white;font-size:11px;font-weight:700;padding:2px 8px;border-radius:200px;}
+.svg{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.svi{background:white;border-radius:12px;border:1px solid #d9d9d9;padding:14px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;box-shadow:0 1px 5px rgba(0,0,0,.05);}
+.svic{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:#f3f0fb;}
+.svn{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px;}
+.svd{font-size:11px;color:#999;line-height:1.4;margin-bottom:6px;}
+.svp{font-size:13px;font-weight:800;color:#c0166e;}
+.svf{font-size:10px;color:#bbb;margin-left:3px;}
+.jgr{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.jit{background:white;border-radius:12px;border:1.5px solid #eee;padding:14px;cursor:pointer;position:relative;box-shadow:0 1px 5px rgba(0,0,0,.05);}
+.jit:hover:not(.hired){border-color:#c0166e;box-shadow:0 3px 10px rgba(204,51,153,.1);}
+.jit.hired{border-color:#1a8c4e;background:#f6fbf0;cursor:default;}
+.jiti{font-size:22px;margin-bottom:6px;}
+.jitn{font-size:12px;font-weight:800;color:#1a1a1a;margin-bottom:1px;}
+.jitw{font-size:11px;color:#888;margin-bottom:5px;}
+.jitd{font-size:10px;color:#aaa;line-height:1.4;margin-bottom:8px;}
+.jab{width:100%;background:#c0166e;color:white;border:none;border-radius:7px;padding:6px;font-size:11px;font-weight:800;cursor:pointer;}
+.jab:hover{background:#a0104e;}
+.jhb{position:absolute;top:8px;right:8px;background:#eaf7ee;color:#1a8c4e;font-size:9px;font-weight:800;padding:2px 7px;border-radius:20px;border:.5px solid #b8e0a0;}
+.qpb{height:7px;background:#eee;margin:10px 16px 0;flex-shrink:0;}
+.qpf{height:100%;background:#c0166e;border-radius:4px;transition:width .3s;}
+.qbd{flex:1;overflow-y:auto;padding:18px 22px;}
+.qq{font-size:16px;font-weight:800;color:#1a1a1a;margin-bottom:16px;line-height:1.35;}
+.qog{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.qo{border:2px solid #eee;border-radius:11px;padding:12px 10px;cursor:pointer;text-align:center;background:white;}
+.qo:hover{border-color:#c0166e;}
+.qo.ok{border-color:#3b9a22;background:#eaf7ee;}
+.qo.no{border-color:#e04040;background:#fef0f0;}
+.qoi{font-size:26px;margin-bottom:5px;}
+.qot{font-size:12px;font-weight:800;color:#333;}
+.qos{font-size:10px;color:#888;margin-top:1px;}
+.qnb{margin:14px 22px;padding:11px;background:#c0166e;color:white;border:none;border-radius:9px;font-size:13px;font-weight:800;cursor:pointer;width:calc(100% - 44px);flex-shrink:0;}
+.qnb:disabled{background:#ddd;color:#aaa;cursor:default;}
+.qnb:not(:disabled):hover{background:#a0104e;}
+.qfb{margin-top:10px;padding:9px 11px;border-radius:8px;font-size:12px;font-weight:700;}
+.qfb.ok{background:#eaf7ee;color:#2a6a10;}
+.qfb.no{background:#fef0f0;color:#a02020;}
+.qrs{text-align:center;padding:28px 22px;}
+.qrsi{font-size:56px;margin-bottom:10px;}
+.qrst{font-size:21px;font-weight:800;color:#1a1a1a;margin-bottom:5px;}
+.qrss{font-size:13px;color:#666;margin-bottom:18px;}
+.qrsm{display:inline-flex;align-items:center;gap:7px;background:#eaf7ee;border:2px solid #b8e0a0;border-radius:14px;padding:11px 22px;font-size:22px;font-weight:800;color:#2a6a10;margin-bottom:22px;}
+.qrsb{background:#c0166e;color:white;border:none;border-radius:9px;padding:11px 28px;font-size:14px;font-weight:800;cursor:pointer;}
+.qrsb:hover{background:#a0104e;}
+.aoi{font-size:40px;text-align:center;margin-bottom:8px;}
+.aon{font-size:16px;font-weight:800;color:#1a1a1a;text-align:center;margin-bottom:3px;}
+.aow{font-size:13px;color:#888;text-align:center;margin-bottom:16px;}
+.aol{font-size:11px;font-weight:700;color:#888;margin-bottom:4px;display:block;}
+.aoq{font-size:13px;color:#1a1a1a;font-weight:600;margin-bottom:8px;}
+.aoo{border:1.5px solid #eee;border-radius:8px;padding:8px 11px;margin-bottom:6px;cursor:pointer;font-size:12px;font-weight:700;color:#444;}
+.aoo:hover,.aoo.sel{border-color:#c0166e;background:#fff0f5;color:#c0166e;}
+.aos{width:100%;background:#c0166e;color:white;border:none;border-radius:9px;padding:10px;font-size:13px;font-weight:800;cursor:pointer;margin-top:4px;}
+.aos:hover{background:#a0104e;}
+.asuc{text-align:center;padding:20px 10px;}
+.asuci{font-size:50px;margin-bottom:10px;}
+.asuct{font-size:18px;font-weight:800;color:#1a1a1a;margin-bottom:5px;}
+.asucs{font-size:12px;color:#666;margin-bottom:18px;line-height:1.5;}
+.asucb{background:#c0166e;color:white;border:none;border-radius:9px;padding:10px 24px;font-size:13px;font-weight:800;cursor:pointer;}
+.cb{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #e8e8e8;padding:8px 14px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;z-index:100;}
+.cbl{font-size:11px;color:#888;font-weight:800;}
+.cbb{padding:5px 11px;border-radius:7px;font-size:11px;font-weight:700;border:1.5px solid #ddd;background:white;cursor:pointer;color:#555;}
+.cbb.on{background:#1a8c4e;color:white;border-color:#1a8c4e;}
+.cbb:hover:not(.on){border-color:#c0166e;color:#c0166e;}
+.qzgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.qzcard{background:white;border-radius:12px;border:1.5px solid #eee;padding:18px;cursor:pointer;box-shadow:0 1px 5px rgba(0,0,0,.05);transition:border-color .15s,box-shadow .15s;}
+.qzcard:hover:not(.done){border-color:#c0166e;box-shadow:0 3px 10px rgba(204,51,153,.1);}
+.qzcard.done{border-color:#b8e0a0;background:#f6fbf0;cursor:default;}
+.qzci{font-size:28px;margin-bottom:8px;}
+.qzcn{font-size:14px;font-weight:800;color:#1a1a1a;margin-bottom:3px;}
+.qzcs{font-size:12px;color:#999;margin-bottom:12px;}
+.qzcbtn{display:inline-flex;align-items:center;gap:5px;background:#c0166e;color:white;font-size:12px;font-weight:800;padding:7px 16px;border-radius:8px;}
+.qzclk{display:flex;align-items:center;justify-content:space-between;}
+.sechead{font-size:16px;font-weight:800;color:#1e1e1e;margin-bottom:4px;}
+.secsub{font-size:13px;color:#888;margin-bottom:14px;}
+.sectitle{font-size:17px;font-weight:800;color:#1e1e1e;margin:0 0 6px;}
+.secdiv{margin-bottom:28px;}
+.lkbox{background:#fffbec;border:1.5px dashed #f0d060;border-radius:12px;padding:20px;text-align:center;}
+.lkboxi{font-size:24px;margin-bottom:8px;}
+.lkboxt{font-size:14px;font-weight:700;color:#7a5008;margin-bottom:4px;}
+.lkboxs{font-size:12px;color:#b07a10;}
+
+/* ===== BANKING MODAL - matched to Figma design ===== */
+#bankOv,#bankOv *{font-family:'Mulish',system-ui,sans-serif;}
+#bankTitle{font-family:'Mulish',sans-serif;font-weight:900;font-size:18px;color:#1e1e1e;letter-spacing:-0.1px;}
+
+/* Body padding */
+#bankBody{padding:0;}
+
+/* Wallet/balance summary at top */
+.bb-wrap{padding:16px 16px 8px;text-align:center;}
+.bb{font-family:'Mulish',sans-serif;font-weight:600;font-size:24px;line-height:22px;color:#333;margin-bottom:8px;margin-top:8px;}
+.bbs{font-family:'Mulish',sans-serif;font-weight:400;font-size:14px;line-height:18px;color:#666;}
+
+/* Account cards side-by-side */
+.bam{display:flex;gap:12px;padding:16px;}
+.bac{flex:1;height:120px;border-radius:12px;overflow:hidden;position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;transition:transform .15s,opacity .15s;}
+.bac:hover{opacity:.92;}
+.bac.ev{background:#fff1fa;border:1px solid #ffcded;box-shadow:0 2px 0 #ffcded;}
+.bac.sv{background:#f0f1ff;border:1px solid #bec2ff;box-shadow:0 2px 0 #bec2ff;}
+.bac.sv-locked{background:#f5f5f5;border:1px solid #e0e0e0;box-shadow:0 2px 0 #e0e0e0;cursor:default;}
+.bac.sv-locked:hover{opacity:1;}
+.baca{font-family:'Mulish',sans-serif;font-weight:600;font-size:20px;line-height:22px;color:#333;position:relative;z-index:2;}
+.bacl{font-family:'Mulish',sans-serif;font-weight:400;font-size:14px;line-height:18px;color:#666;position:relative;z-index:2;}
+/* Decorative strawberry for Everyday */
+.bac.ev::before{content:"";position:absolute;bottom:-28px;left:-40px;width:110px;height:110px;background:radial-gradient(circle at 30% 30%,#ff4a95 0%,#d42f78 55%,#b02060 100%);border-radius:50% 45% 50% 45%;transform:rotate(-10deg);opacity:.85;z-index:1;box-shadow:inset 6px 6px 0 rgba(255,255,255,.2);}
+.bac.ev::after{content:"";position:absolute;bottom:52px;left:10px;width:26px;height:30px;background:#3ea852;border-radius:40% 60% 20% 80%;transform:rotate(-30deg);z-index:1;}
+/* Decorative coins for Savings */
+.bac.sv::before{content:"";position:absolute;bottom:12px;left:8px;width:62px;height:28px;background:linear-gradient(135deg,#a5abff 0%,#7e85ff 60%,#5c63e8 100%);border-radius:50%;transform:rotate(-18deg) skewX(-4deg);opacity:.8;z-index:1;box-shadow:0 -3px 0 rgba(255,255,255,.3) inset;}
+.bac.sv::after{content:"";position:absolute;bottom:26px;left:26px;width:44px;height:22px;background:linear-gradient(135deg,#bec2ff 0%,#9ca3ff 60%,#7a82e8 100%);border-radius:50%;transform:rotate(-18deg) skewX(-4deg);opacity:.9;z-index:1;}
+
+/* Locked savings state */
+.bac .locked-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative;z-index:2;}
+.bac .locked-icon{font-size:22px;color:#bbb;}
+.bac .locked-txt{font-family:'Mulish',sans-serif;font-size:12px;color:#999;}
+
+/* Section heading (Upcoming payments / Recent transactions) */
+.aph{font-family:'Mulish',sans-serif;font-weight:900;font-size:18px;line-height:22px;color:#1e1e1e;padding:16px 16px 0;margin-bottom:4px;}
+
+/* Payment/transaction row */
+.api{display:flex;gap:8px;align-items:flex-start;padding:8px 16px;}
+.apil{display:flex;gap:8px;align-items:flex-start;flex:1;min-width:0;}
+.apii{width:40px;height:40px;border-radius:50%;background:#fff4fb;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;position:relative;}
+.apii.blue{background:#c9eefe;}
+.apii.green{background:#e1f5d9;}
+.apii.yellow{background:#fff3d0;}
+.apid{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+.apin{font-family:'Mulish',sans-serif;font-weight:600;font-size:16px;line-height:20px;color:#1e1e1e;}
+.apis{font-family:'Mulish',sans-serif;font-weight:400;font-size:14px;line-height:18px;color:#666;}
+.apia{font-family:'Mulish',sans-serif;font-weight:600;font-size:16px;line-height:20px;color:#333;white-space:nowrap;flex-shrink:0;}
+.apia.cr{color:#1a8c4e;}
+.apia.db{color:#333;}
+
+/* Transaction view header (for everyday/savings detail) */
+.txh{display:flex;align-items:center;gap:12px;padding:20px 16px 8px;}
+.txh-ic{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:28px;}
+.txh.everyday .txh-ic{background:#fff1fa;}
+.txh.savings .txh-ic{background:#f0f1ff;}
+.txh-lbl{font-family:'Mulish',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.6px;color:#888;text-transform:uppercase;}
+.txb{font-family:'Mulish',sans-serif;font-weight:600;font-size:24px;line-height:28px;color:#333;margin-top:2px;}
+.txl{font-family:'Mulish',sans-serif;font-weight:900;font-size:18px;color:#1e1e1e;padding:20px 16px 0;margin-bottom:4px;}
+.txi{display:flex;gap:8px;align-items:flex-start;padding:8px 16px;}
+.txil{display:flex;gap:8px;align-items:flex-start;flex:1;min-width:0;}
+.txic{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.txic.in{background:#e1f5d9;}
+.txic.out{background:#fff4fb;}
+.txin{font-family:'Mulish',sans-serif;font-weight:600;font-size:16px;line-height:20px;color:#1e1e1e;}
+.txid{font-family:'Mulish',sans-serif;font-weight:400;font-size:14px;line-height:18px;color:#666;}
+.txa{font-family:'Mulish',sans-serif;font-weight:600;font-size:16px;line-height:20px;white-space:nowrap;flex-shrink:0;align-self:center;}
+.txa.cr{color:#1a8c4e;}
+.txa.db{color:#333;}
+
+/* Pay / Transfer forms */
+.pform{padding:20px 16px;}
+.pl{display:block;font-family:'Mulish',sans-serif;font-weight:700;font-size:12px;color:#666;letter-spacing:0.3px;text-transform:uppercase;margin:14px 0 6px;}
+.pl:first-child{margin-top:0;}
+.pi{width:100%;padding:12px 14px;border:1.5px solid #e6e6e6;border-radius:10px;font-family:'Mulish',sans-serif;font-size:15px;color:#1e1e1e;background:white;outline:none;transition:border-color .15s;}
+.pi:focus{border-color:#c0166e;}
+.ps{width:100%;margin-top:18px;padding:13px;background:#c0166e;color:white;border:none;border-radius:10px;font-family:'Mulish',sans-serif;font-weight:800;font-size:15px;cursor:pointer;}
+.ps:hover{background:#a0104e;}
+.sl{padding:40px 24px;text-align:center;}
+.sli{font-size:32px;color:#ccc;margin-bottom:10px;}
+.slm{font-family:'Mulish',sans-serif;font-size:13px;color:#999;line-height:1.5;}
+
+/* Bottom nav buttons get Mulish */
+.bkftab{font-family:'Mulish',sans-serif;font-weight:500;}
+
+/* ===== AVATAR CUSTOMISER MODAL ===== */
+#avOv,#avOv *{font-family:'Mulish',system-ui,sans-serif;}
+.hava{cursor:pointer;transition:transform .15s,box-shadow .15s;position:relative;overflow:visible;background:#e7e1ff;}
+.hava:hover{transform:scale(1.04);box-shadow:0 0 0 3px #c0166e,0 4px 16px rgba(192,22,110,.25);}
+.hava-edit{position:absolute;bottom:-2px;right:-2px;width:26px;height:26px;border-radius:50%;background:#c0166e;border:2.5px solid white;display:flex;align-items:center;justify-content:center;color:white;box-shadow:0 2px 6px rgba(0,0,0,.15);z-index:5;}
+.hava-edit svg{width:12px;height:12px;}
+
+/* Avataaars image holder - scales to fill container */
+.av-img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;}
+.nua .av-img{border-radius:50%;}
+.hava .av-img{border-radius:50%;}
+
+.av-tabs{display:flex;gap:0;border-bottom:1px solid #f0f0f0;padding:0 4px;overflow-x:auto;flex-shrink:0;scrollbar-width:none;-ms-overflow-style:none;}
+.av-tabs::-webkit-scrollbar{display:none;}
+.av-tab{padding:12px 10px;background:none;border:none;font-family:'Mulish',sans-serif;font-weight:700;font-size:13px;color:#888;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s;white-space:nowrap;flex-shrink:0;}
+.av-tab.active{color:#c0166e;border-bottom-color:#c0166e;}
+.av-tab:hover:not(.active){color:#555;}
+
+.av-preview{display:flex;flex-direction:column;align-items:center;padding:18px 16px 8px;gap:6px;flex-shrink:0;}
+.av-preview-circle{width:110px;height:110px;border-radius:50%;background:#e7e1ff;border:3px solid white;box-shadow:0 0 0 3px #c0166e;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+
+.av-scroll{overflow-y:auto;padding:14px 16px 16px;flex:1;}
+.av-section-label{font-family:'Mulish',sans-serif;font-weight:800;font-size:11px;letter-spacing:0.5px;color:#888;text-transform:uppercase;margin-bottom:10px;}
+
+.av-opt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.av-opt{aspect-ratio:1;border-radius:12px;border:2px solid #eee;background:#f7f7f7;cursor:pointer;position:relative;transition:border-color .15s,background .15s;overflow:hidden;padding:2px;}
+.av-opt:hover{border-color:#c0166e;}
+.av-opt.selected{border-color:#c0166e;background:#fff0f8;box-shadow:0 2px 0 #ffcded;}
+.av-opt .av-opt-img{width:100%;height:100%;object-fit:cover;}
+.av-opt .av-opt-swatch{width:100%;height:100%;border-radius:10px;}
+.av-opt .av-opt-check{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:#c0166e;color:white;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.av-opt .av-opt-none{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:#999;background:#f0f0f0;border-radius:10px;}
+.av-opt .av-opt-lock{position:absolute;inset:0;background:rgba(255,255,255,.75);display:flex;align-items:center;justify-content:center;font-size:20px;color:#aaa;border-radius:10px;}
+
+.av-empty{text-align:center;padding:30px 20px;color:#aaa;font-size:12px;line-height:1.5;}
+.av-empty-ico{font-size:28px;margin-bottom:8px;opacity:.6;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nw">
+  <div class="nav">
+    <svg width="145" height="32" viewBox="0 0 145 32" fill="none">
+      <ellipse cx="14" cy="16" rx="12" ry="8" fill="rgba(255,255,255,.25)"/>
+      <path d="M9 16 Q12 10 17 12 Q22 14 23 16 Q24 19 20 21 Q15 23 11 20 Z" fill="rgba(255,255,255,.5)"/>
+      <path d="M13 15 L19 13 L21 17 L15 19 Z" fill="white"/>
+      <text x="32" y="13" font-family="system-ui" font-size="13" font-weight="800" fill="white" letter-spacing="0.5">BANQER</text>
+      <text x="32" y="27" font-family="system-ui" font-size="10" font-weight="500" fill="rgba(255,255,255,.8)" letter-spacing="1">PRIMARY</text>
+    </svg>
+    <div class="nr">
+      <div class="nib y" id="navQBtn" onclick="openQuizzes()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#5a3e00" stroke-width="2.2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1.2" fill="#5a3e00"/><circle cx="3" cy="12" r="1.2" fill="#5a3e00"/><circle cx="3" cy="18" r="1.2" fill="#5a3e00"/></svg>
+        <span class="nbadge" id="navQDot">3</span>
+      </div>
+      <div class="nib p" onclick="openMarket(null)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      </div>
+      <div class="nu">
+        <div class="nua" id="navAvatar"><img class="av-img" id="navAvImg" alt=""></div>
+        <span style="font-size:15px;font-weight:600;color:white;">Harry</span>
+        <span style="color:rgba(255,255,255,.7);font-size:11px;">&#9660;</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hava" id="heroAvatar" onclick="openAvatarModal()">
+    <img class="av-img" id="heroAvImg" alt="Avatar">
+    <div class="hava-edit" aria-label="Edit avatar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    </div>
+  </div>
+  <div style="font-size:22px;font-weight:700;color:#1e1e1e;margin-bottom:2px;">Harry Potter</div>
+  <div style="font-size:15px;color:#666;">harry.potter</div>
+  <div id="avatarNudge" class="nudge-pill" onclick="openAvatarModal()">&#x2728; Customise your look &#8594;</div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="main">
+  <div class="dg">
+    <!-- Column 1: Bank + Career -->
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="card" id="bankCard">
+        <div class="ch">
+          <div class="ct">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Bank
+          </div>
+          <button class="ca" id="bankArrow" onclick="openBankAccounts()" style="display:none">&#8594;</button>
+        </div>
+        <div id="bankPrev"></div>
+      </div>
+      <div class="card" id="jobCard" style="display:none;">
+        <div class="ch">
+          <div class="ct">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+            Career
+          </div>
+          <button class="ca" onclick="openMarket('jobs')">&#8594;</button>
+        </div>
+        <div id="jobPrev"></div>
+      </div>
+    </div>
+
+    <!-- Column 2: Marketplace -->
+    <div class="card" id="marketCard">
+      <div class="ch">
+        <div class="ct">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          Marketplace
+        </div>
+        <button class="ca" onclick="openMarket('shop')">&#8594;</button>
+      </div>
+      <div id="marketPrev"></div>
+    </div>
+
+    <!-- Column 3: Quizzes -->
+    <div class="card">
+      <div class="ch">
+        <div class="ct">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1.2" fill="currentColor"/><circle cx="3" cy="12" r="1.2" fill="currentColor"/><circle cx="3" cy="18" r="1.2" fill="currentColor"/></svg>
+          Quizzes
+          <span class="qdot" id="dashQDot">3</span>
+        </div>
+      </div>
+      <div id="dashQuizBody"></div>
+    </div>
+  </div>
+</div>
+
+<!-- AVATAR MODAL -->
+<div class="ov cen hidden" id="avOv">
+  <div style="width:320px;height:580px;background:white;border-radius:28px;border:4px solid #1a1a1a;position:relative;overflow:hidden;display:flex;flex-direction:column;">
+    <!-- header -->
+    <div style="height:56px;background:white;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:center;padding:0 44px;position:relative;flex-shrink:0;">
+      <div style="font-size:17px;font-weight:900;color:#1e1e1e;">Customise avatar</div>
+      <button onclick="closeModal('avOv')" style="position:absolute;right:12px;background:none;border:none;font-size:18px;cursor:pointer;color:#888;">&#10005;</button>
+    </div>
+    <!-- preview -->
+    <div class="av-preview">
+      <div class="av-preview-circle"><img class="av-img" id="avPreviewImg" alt="Preview"></div>
+    </div>
+    <!-- tabs -->
+    <div class="av-tabs" id="avTabs"></div>
+    <!-- scrollable body -->
+    <div class="av-scroll" id="avBody"></div>
+  </div>
+</div>
+
+<!-- BANK MODAL -->
+<div class="ov cen hidden" id="bankOv">
+  <div style="width:320px;height:580px;background:white;border-radius:28px;border:4px solid #1a1a1a;position:relative;overflow:hidden;">
+    <!-- header -->
+    <div style="position:absolute;top:0;left:0;right:0;height:56px;background:white;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:center;padding:0 44px;z-index:2;">
+      <div style="font-size:17px;font-weight:900;color:#1e1e1e;" id="bankTitle">Banking</div>
+      <button onclick="closeModal('bankOv')" style="position:absolute;right:12px;background:none;border:none;font-size:18px;cursor:pointer;color:#888;">&#10005;</button>
+    </div>
+    <!-- scrollable body -->
+    <div id="bankBody" style="position:absolute;top:56px;bottom:64px;left:0;right:0;overflow-y:auto;overflow-x:hidden;"></div>
+    <!-- footer -->
+    <div id="bankFoot" style="position:absolute;bottom:0;left:0;right:0;height:64px;background:white;border-top:1px solid #f0f0f0;display:flex;align-items:center;gap:4px;padding:4px 8px 10px;z-index:2;"></div>
+  </div>
+</div>
+
+<!-- MARKET MODAL -->
+<div class="ov hidden" id="marketOv">
+  <div class="ml">
+    <div class="mh"><span class="mhtit">Marketplace</span><button class="mx" onclick="closeModal('marketOv')">&#10005;</button></div>
+    <div class="mkb" id="marketBody"></div>
+  </div>
+</div>
+
+<!-- APPLY MODAL -->
+<div class="ov cen hidden" id="applyOv">
+  <div class="mp">
+    <div class="mh"><span class="mhtit">Apply for job</span><button class="mx" onclick="closeModal('applyOv')">&#10005;</button></div>
+    <div class="mb" id="applyBody"></div>
+  </div>
+</div>
+
+<!-- PURCHASE MODAL -->
+<div class="ov cen hidden" id="buyOv">
+  <div class="mp" style="height:auto;max-height:580px;">
+    <div class="mh"><span class="mhtit" id="buyTitle">Confirm purchase</span><button class="mx" onclick="closeModal('buyOv')">&#10005;</button></div>
+    <div class="mb" id="buyBody" style="padding:0;"></div>
+  </div>
+</div>
+
+<!-- QUIZZES LIST MODAL -->
+<div class="ov hidden" id="quizzesOv">
+  <div class="ml">
+    <div class="mh"><span class="mhtit">Quizzes</span><button class="mx" onclick="closeModal('quizzesOv')">&#10005;</button></div>
+    <div class="mkb" id="quizzesBody"></div>
+  </div>
+</div>
+
+<!-- QUIZ PLAYER MODAL -->
+<div class="ov hidden" id="quizOv">
+  <div class="ml">
+    <div class="mh">
+      <button class="mbk" onclick="backToQuizList()">&#8592; Back</button>
+      <span class="mhtit" id="quizTitle">Quiz</span>
+      <button class="mx" onclick="closeModal('quizOv');closeModal('quizzesOv')">&#10005;</button>
+    </div>
+    <div class="qpb"><div class="qpf" id="qProg"></div></div>
+    <div class="mb qbd" id="quizBody"></div>
+  </div>
+</div>
+
+<!-- TEACHER BAR -->
+<div class="cb">
+  <span class="cbl">Teacher unlocks:</span>
+  <button class="cbb" id="btnEv" onclick="toggleFeature('everyday',this)">Everyday account</button>
+  <button class="cbb" id="btnSv" onclick="toggleFeature('savings',this)">Savings account</button>
+  <button class="cbb" id="btnSvc" onclick="toggleFeature('services',this)">Services</button>
+  <button class="cbb" id="btnCar" onclick="toggleFeature('careers',this)">Careers</button>
+  <button class="cbb" id="btnUQ" onclick="toggleFeature('unitQuizzes',this)">Unit quizzes</button>
+</div>
+
+<script>
+// ===== State - balances, transactions, ownership =====
+var balances = {everyday:300.00, savings:0.00};
+var TX_EV = [{ico:"&#x1F4DD;",t:"in",n:"Kickoff quiz",d:"Mon 24 Mar",a:"+$300.00"}];
+var TX_SV = [];
+// Transient flag list - tracks one-time nudge dismissals
+var nudges = {avatar:true, bankBalance:true, marketplaceBanner:true, quizStartHere:true};
+var SERVICES = [{ico:"&#x2702;&#xFE0F;",n:"Haircut",d:"Fresh trim from the class barber",p:"$15",f:"per visit"},{ico:"&#x1F9F9;",n:"Desk clean",d:"Someone tidies your desk",p:"$5",f:"per clean"},{ico:"&#x1F3A8;",n:"Custom poster",d:"Hand-drawn poster to order",p:"$20",f:"per poster"},{ico:"&#x1F4E6;",n:"Delivery run",d:"Items delivered across classroom",p:"$3",f:"per delivery"},{ico:"&#x1F371;",n:"Lunch prep",d:"Sets up your lunch spot",p:"$4",f:"per day"},{ico:"&#x1F4DA;",n:"Tutoring",d:"30 min help with classwork",p:"$10",f:"per session"}];
+var JOBS = [{ico:"&#x1F3E6;",t:"Bank teller",d:"Help classmates with transactions",w:"$80/wk",c:"#e8f4ff"},{ico:"&#x1F6D2;",t:"Shop keeper",d:"Run a stall in the marketplace",w:"$70/wk",c:"#fef5e0"},{ico:"&#x1F9D1;&#x200D;&#x1F3EB;",t:"Class tutor",d:"Help others learn a topic",w:"$60/wk",c:"#fbeaf0"},{ico:"&#x1F4F0;",t:"News reporter",d:"Write the class newsletter",w:"$55/wk",c:"#eaf7ee"},{ico:"&#x1F9F9;",t:"Custodian",d:"Keep the classroom tidy",w:"$50/wk",c:"#f3f0fb"},{ico:"&#x1F373;",t:"Cafe owner",d:"Run the class cafe",w:"$90/wk",c:"#fff8e8"},{ico:"&#x1F3A8;",t:"Graphic designer",d:"Make posters and signs",w:"$65/wk",c:"#fff0f5"},{ico:"&#x1F69A;",t:"Delivery driver",d:"Deliver items between students",w:"$45/wk",c:"#e8f4ff"},{ico:"&#x1F4BB;",t:"IT support",d:"Help with classroom tech",w:"$75/wk",c:"#eaf7ee"},{ico:"&#x1F4F8;",t:"Photographer",d:"Photograph class events",w:"$60/wk",c:"#fbeaf0"}];
+var SHOP = [
+  {wId:"w_blue_beanie",n:"Blue Beanie",p:30,sale:null,ico:"&#x1F9E2;",bg:"#dbf1ff",cat:"Clothing",sub:"Beanies"},
+  {wId:"w_pink_beanie",n:"Pink Beanie",p:30,sale:null,ico:"&#x1F3A9;",bg:"#fde8f5",cat:"Clothing",sub:"Beanies"},
+  {wId:"w_green_beanie",n:"Green Beanie",p:30,sale:null,ico:"&#x1FA96;",bg:"#e8fde8",cat:"Clothing",sub:"Beanies"},
+  {wId:"w_red_winter_hat",n:"Red Winter Hat",p:30,sale:null,ico:"&#x1F3A9;",bg:"#ffe8e8",cat:"Clothing",sub:"Beanies"},
+  {wId:"w_aviators",n:"Aviators",p:30,sale:27,ico:"&#x1F576;",bg:"#ededed",cat:"Accessories",sub:"Sunglasses"},
+  {wId:"w_gold_shades",n:"Gold Shades",p:30,sale:null,ico:"&#x1F97D;",bg:"#fff8e0",cat:"Accessories",sub:"Sunglasses"},
+  {wId:"w_cool_shades",n:"Cool Shades",p:30,sale:null,ico:"&#x1F60E;",bg:"#ededed",cat:"Accessories",sub:"Sunglasses"},
+  {wId:"w_pink_frames",n:"Pink Frames",p:30,sale:null,ico:"&#x1F576;",bg:"#fde8f5",cat:"Accessories",sub:"Sunglasses"},
+  {wId:"w_hoodie_red",n:"Red Hoodie",p:60,sale:null,ico:"&#x1F455;",bg:"#ffe8e8",cat:"Clothing",sub:"Jackets"},
+  {wId:"w_hoodie_blue",n:"Blue Hoodie",p:60,sale:null,ico:"&#x1F455;",bg:"#dbf1ff",cat:"Clothing",sub:"Jackets"},
+  {wId:"w_blazer",n:"Blazer",p:120,sale:null,ico:"&#x1F9E5;",bg:"#e8f0ff",cat:"Clothing",sub:"Jackets"},
+  {wId:"w_overall",n:"Overalls",p:80,sale:null,ico:"&#x1F457;",bg:"#e8f4ff",cat:"Clothing",sub:"Jackets"}
+];
+var SUBCATS = {All:[{n:"Beanies",c:4},{n:"Sunglasses",c:4},{n:"Jackets",c:4}],Clothing:[{n:"Beanies",c:4},{n:"Jackets",c:4}],Accessories:[{n:"Sunglasses",c:4}]};
+
+var PRACTICE_QUIZZES = [
+  {id:"pq1",title:"What is money?",ico:"&#x1F4B0;",qs:[
+    {q:"Which of these is money?",opts:[{ico:"&#x1FA99;",t:"A coin",s:"Legal currency",ok:true},{ico:"&#x1F34E;",t:"An apple",s:"A food item",ok:false},{ico:"&#x1F58D;",t:"A crayon",s:"Art supply",ok:false},{ico:"&#x1F9F8;",t:"A teddy bear",s:"A toy",ok:false}]},
+    {q:"What do we use money for?",opts:[{ico:"&#x1F6D2;",t:"Buying things",s:"Like food and clothes",ok:true},{ico:"&#x1F327;",t:"Making it rain",s:"Like in movies",ok:false},{ico:"&#x1F3B2;",t:"Playing games",s:"Board game pieces",ok:false},{ico:"&#x1F5BC;",t:"Decoration",s:"Hanging on wall",ok:false}]},
+    {q:"Where do people keep money safely?",opts:[{ico:"&#x1F3E6;",t:"A bank",s:"Safe and secure",ok:true},{ico:"&#x1F333;",t:"Under a tree",s:"Not very safe!",ok:false},{ico:"&#x1F9E6;",t:"In a sock",s:"Old trick, bad idea",ok:false},{ico:"&#x1F392;",t:"In a backpack",s:"Easy to lose",ok:false}]}
+  ]},
+  {id:"pq2",title:"Needs vs wants",ico:"&#x1F914;",qs:[
+    {q:"Which is a NEED?",opts:[{ico:"&#x1F35E;",t:"Food",s:"You need food to live",ok:true},{ico:"&#x1F3AE;",t:"A video game",s:"Fun, not essential",ok:false},{ico:"&#x1F366;",t:"Ice cream",s:"A treat",ok:false},{ico:"&#x1F45F;",t:"New sneakers",s:"Have shoes already",ok:false}]},
+    {q:"Is a bicycle a need or want?",opts:[{ico:"&#x2705;",t:"Need",s:"Must have it",ok:false},{ico:"&#x2B50;",t:"Want",s:"Nice to have",ok:true},{ico:"&#x1F937;",t:"Neither",s:"Has to be one!",ok:false},{ico:"&#x1F504;",t:"Both",s:"Always both",ok:false}]},
+    {q:"Which would you buy FIRST with $10?",opts:[{ico:"&#x1F48A;",t:"Medicine",s:"If you are sick",ok:true},{ico:"&#x1F36D;",t:"Lollies",s:"Sweet treat",ok:false},{ico:"&#x1F0CF;",t:"Trading cards",s:"Collectibles",ok:false},{ico:"&#x1F388;",t:"A balloon",s:"For fun",ok:false}]}
+  ]},
+  {id:"pq3",title:"Saving money",ico:"&#x1F437;",qs:[
+    {q:"Why do people save money?",opts:[{ico:"&#x1F3AF;",t:"Buy something big later",s:"Like a bike or holiday",ok:true},{ico:"&#x1F648;",t:"Hide it forever",s:"Never spend it",ok:false},{ico:"&#x1F525;",t:"To burn it",s:"That is wasteful!",ok:false},{ico:"&#x1F634;",t:"Boring, skip it",s:"No saving",ok:false}]},
+    {q:"Save $2/week - how much after 5 weeks?",opts:[{ico:"&#x1F4B5;",t:"$5",s:"Not quite",ok:false},{ico:"&#x1F4B5;",t:"$10",s:"2 x 5 = 10",ok:true},{ico:"&#x1F4B5;",t:"$15",s:"Too much",ok:false},{ico:"&#x1F4B5;",t:"$25",s:"Way too much",ok:false}]}
+  ]}
+];
+
+var UNIT_QUIZZES = [
+  {id:"u1",name:"Unit 1 - Income and Expenses",quizzes:[
+    {id:"u1q1",title:"What is income?",ico:"&#x1F4BC;",qs:[
+      {q:"What is income?",opts:[{ico:"&#x1F4B0;",t:"Money you receive",s:"For work or tasks",ok:true},{ico:"&#x1F6D2;",t:"Money you spend",s:"Going out",ok:false},{ico:"&#x1F3E6;",t:"Money in the bank",s:"Already saved",ok:false},{ico:"&#x1F381;",t:"A gift",s:"Not always",ok:false}]},
+      {q:"Which is an example of income?",opts:[{ico:"&#x1F4B5;",t:"Your weekly wage",s:"Paid for your work",ok:true},{ico:"&#x1F9FE;",t:"A power bill",s:"That is an expense",ok:false},{ico:"&#x1F6D2;",t:"Buying lunch",s:"That is spending",ok:false},{ico:"&#x1F3AE;",t:"A new game",s:"That is a purchase",ok:false}]},
+      {q:"You earn $50 and spend $30. How much do you keep?",opts:[{ico:"&#x1F4B5;",t:"$20",s:"50 minus 30 equals 20",ok:true},{ico:"&#x1F4B5;",t:"$10",s:"Not quite",ok:false},{ico:"&#x1F4B5;",t:"$30",s:"That was the spend",ok:false},{ico:"&#x1F4B5;",t:"$80",s:"50 plus 30 equals 80",ok:false}]}
+    ]},
+    {id:"u1q2",title:"What is an expense?",ico:"&#x1F4CB;",qs:[
+      {q:"What is an expense?",opts:[{ico:"&#x1F4B8;",t:"Money going out",s:"Like paying rent",ok:true},{ico:"&#x1F4B0;",t:"Money coming in",s:"Like a wage",ok:false},{ico:"&#x1F437;",t:"Money you save",s:"Keeping it",ok:false},{ico:"&#x1F3E6;",t:"Money in a bank",s:"Stored away",ok:false}]},
+      {q:"Which is an expense?",opts:[{ico:"&#x26A1;",t:"A power bill",s:"You pay for power",ok:true},{ico:"&#x1F4B5;",t:"Your weekly wage",s:"That is income",ok:false},{ico:"&#x1F3C6;",t:"Winning a prize",s:"That is earning",ok:false},{ico:"&#x1F381;",t:"A birthday gift",s:"That is receiving",ok:false}]},
+      {q:"Fixed expenses happen...",opts:[{ico:"&#x1F4C5;",t:"On a regular schedule",s:"Like rent every week",ok:true},{ico:"&#x1F3B2;",t:"Randomly",s:"That is variable",ok:false},{ico:"&#x1F645;",t:"Never",s:"They do happen!",ok:false},{ico:"&#x1F634;",t:"Only when you sleep",s:"That makes no sense",ok:false}]}
+    ]}
+  ]},
+  {id:"u2",name:"Unit 2 - Banking Basics",quizzes:[
+    {id:"u2q1",title:"Everyday accounts",ico:"&#x1F3E6;",qs:[
+      {q:"What is an everyday account for?",opts:[{ico:"&#x1F4B3;",t:"Day-to-day spending",s:"Paying for things",ok:true},{ico:"&#x1F437;",t:"Long-term saving",s:"That is more savings",ok:false},{ico:"&#x1F3E0;",t:"Buying a house",s:"That is a mortgage",ok:false},{ico:"&#x1F393;",t:"Paying school fees",s:"Not quite",ok:false}]},
+      {q:"When you deposit money you...",opts:[{ico:"&#x2B06;&#xFE0F;",t:"Put money in",s:"Adding to your account",ok:true},{ico:"&#x2B07;&#xFE0F;",t:"Take money out",s:"That is a withdrawal",ok:false},{ico:"&#x1F504;",t:"Move it between accounts",s:"That is a transfer",ok:false},{ico:"&#x1F5D1;",t:"Lose it",s:"No it is safe!",ok:false}]},
+      {q:"A bank transaction is...",opts:[{ico:"&#x1F4B8;",t:"Money moving in or out",s:"Any account activity",ok:true},{ico:"&#x1F4DD;",t:"A note about money",s:"Not quite",ok:false},{ico:"&#x1F512;",t:"A locked account",s:"That is a freeze",ok:false},{ico:"&#x1F3AF;",t:"A savings goal",s:"Different thing",ok:false}]}
+    ]}
+  ]}
+];
+
+var features = {everyday:true,savings:false,services:false,careers:false,unitQuizzes:false};
+var bankView = "accounts";
+var mktSection = "shop", mktCat = "All";
+var checkedSubs = {};
+var completedQ = {};
+var currentQuiz = null, qIdx = 0, qAnswered = false, qCorrect = 0;
+var currentJob = null, applyingJob = null, applyAnswered = false;
+var pendingPurchase = null;
+
+// ===== AVATAR DATA - Avataaars (DiceBear 9.x HTTP API) =====
+var AV_API = "https://api.dicebear.com/9.x/avataaars/svg";
+
+// Identity options (free - set in the customiser)
+var AV_SKIN = [
+  {id:"ffdbb4",label:"Light"},{id:"edb98a",label:"Fair"},{id:"fd9841",label:"Tan"},
+  {id:"f8d25c",label:"Gold"},{id:"d08b5b",label:"Brown"},{id:"ae5d29",label:"Deep"},{id:"614335",label:"Dark"}
+];
+var AV_EYES = ["default","happy","wink","surprised","squint","eyeRoll","closed","hearts","side","winkWacky"];
+var AV_MOUTH = ["default","smile","twinkle","tongue","serious","eating","grimace","disbelief"];
+var AV_EYEBROWS = ["default","raisedExcited","flatNatural","upDown","angryNatural","defaultNatural"];
+// Free hair (no hat) - students can pick their hairstyle without buying
+var AV_HAIR = [
+  {id:"shortFlat",label:"Short Flat"},{id:"shortCurly",label:"Short Curly"},{id:"shortRound",label:"Short Round"},
+  {id:"shortWaved",label:"Short Waved"},{id:"curly",label:"Curly"},{id:"curvy",label:"Curvy"},
+  {id:"bigHair",label:"Big Hair"},{id:"bob",label:"Bob"},{id:"bun",label:"Bun"},{id:"straight01",label:"Straight"},
+  {id:"longButNotTooLong",label:"Long"},{id:"fro",label:"Fro"},{id:"dreads01",label:"Dreads"}
+];
+var AV_HAIR_COLOUR = [
+  {id:"2c1b18",label:"Black"},{id:"724133",label:"Brown"},{id:"a55728",label:"Auburn"},
+  {id:"b58143",label:"Blonde"},{id:"c93305",label:"Red"},{id:"e8e1e1",label:"Grey"},{id:"f59797",label:"Pink"}
+];
+
+// Wearables = Shop items that map to Avataaars params (shop items override free hair/accessories/clothing when equipped)
+// Each has: slot (only one per slot), optional `top`+`hatColor` (hat), `accessories`+`accessoriesColor` (glasses), `clothing`+`clothesColor`
+var AV_WEARABLES = [
+  {id:"w_blue_beanie",slot:"hat",name:"Blue Beanie",top:"winterHat02",hatColor:"65c9ff"},
+  {id:"w_pink_beanie",slot:"hat",name:"Pink Beanie",top:"winterHat03",hatColor:"ff488e"},
+  {id:"w_green_beanie",slot:"hat",name:"Green Beanie",top:"winterHat1",hatColor:"a7ffc4"},
+  {id:"w_red_winter_hat",slot:"hat",name:"Red Winter Hat",top:"winterHat04",hatColor:"ff5c5c"},
+  {id:"w_aviators",slot:"accessories",name:"Aviators",accessories:"sunglasses",accessoriesColor:"262e33"},
+  {id:"w_gold_shades",slot:"accessories",name:"Gold Shades",accessories:"wayfarers",accessoriesColor:"b58143"},
+  {id:"w_cool_shades",slot:"accessories",name:"Cool Shades",accessories:"round",accessoriesColor:"262e33"},
+  {id:"w_pink_frames",slot:"accessories",name:"Pink Frames",accessories:"prescription02",accessoriesColor:"ff488e"},
+  {id:"w_hoodie_red",slot:"clothing",name:"Red Hoodie",clothing:"hoodie",clothesColor:"ff5c5c"},
+  {id:"w_hoodie_blue",slot:"clothing",name:"Blue Hoodie",clothing:"hoodie",clothesColor:"65c9ff"},
+  {id:"w_blazer",slot:"clothing",name:"Blazer",clothing:"blazerAndShirt",clothesColor:"262e33"},
+  {id:"w_overall",slot:"clothing",name:"Overalls",clothing:"overall",clothesColor:"25557c"}
+];
+// Harry starts with NO wearables - shop is the discovery moment
+var ownedWearables = {};
+
+// Current avatar config
+var avatar = {
+  seed:"harry-potter",
+  skinColor:"edb98a",
+  top:"shortFlat",
+  hairColor:"2c1b18",
+  eyes:"default",
+  eyebrows:"default",
+  mouth:"smile",
+  equipped:{hat:null,accessories:null,clothing:null}, // equipped wearable ids
+  clothing:"shirtCrewNeck", // default clothing if no wearable equipped
+  clothesColor:"65c9ff"
+};
+var avTab = "skin";
+
+function buildAvatarUrl() {
+  // Build effective params: equipped wearables override base
+  var params = {
+    seed: avatar.seed,
+    skinColor: avatar.skinColor,
+    eyes: avatar.eyes,
+    eyebrows: avatar.eyebrows,
+    mouth: avatar.mouth,
+    hairColor: avatar.hairColor,
+    // Lock randomisation - only use the one selected option for each slot
+    accessoriesProbability: 0,
+    facialHairProbability: 0
+  };
+  // Hat or hair
+  var hatId = avatar.equipped.hat;
+  if (hatId) {
+    var hat = AV_WEARABLES.filter(function(w){return w.id===hatId;})[0];
+    params.top = hat.top;
+    params.hatColor = hat.hatColor;
+  } else {
+    params.top = avatar.top;
+  }
+  // Accessories
+  var accId = avatar.equipped.accessories;
+  if (accId) {
+    var acc = AV_WEARABLES.filter(function(w){return w.id===accId;})[0];
+    params.accessories = acc.accessories;
+    params.accessoriesColor = acc.accessoriesColor;
+    params.accessoriesProbability = 100;
+  }
+  // Clothing
+  var clothId = avatar.equipped.clothing;
+  if (clothId) {
+    var cl = AV_WEARABLES.filter(function(w){return w.id===clothId;})[0];
+    params.clothing = cl.clothing;
+    params.clothesColor = cl.clothesColor;
+  } else {
+    params.clothing = avatar.clothing;
+    params.clothesColor = avatar.clothesColor;
+  }
+  var qs = Object.keys(params).map(function(k){
+    return encodeURIComponent(k) + "=" + encodeURIComponent(params[k]);
+  }).join("&");
+  return AV_API + "?" + qs;
+}
+
+function G(id) { return document.getElementById(id); }
+function closeModal(id) { G(id).classList.add("hidden"); }
+
+function toggleFeature(f, btn) {
+  if (f === "savings" && !features.everyday) return;
+  features[f] = !features[f];
+  btn.classList.toggle("on", features[f]);
+  var L = {everyday:"Everyday account",savings:"Savings account",services:"Services",careers:"Careers",unitQuizzes:"Unit quizzes"};
+  btn.textContent = (features[f] ? "\u2713 " : "") + L[f];
+  if (f === "everyday" && !features[f]) {
+    features.savings = false;
+    var sb = G("btnSv"); sb.classList.remove("on"); sb.textContent = "Savings account";
+  }
+  if (f === "careers") {
+    G("jobCard").style.display = features.careers ? "block" : "none";
+    if (!features.careers) currentJob = null;
+    renderJobPrev();
+  }
+  if (f === "unitQuizzes") renderDashQuizzes();
+  renderBankPrev();
+  updateQDot();
+}
+
+function renderBankPrev() {
+  var pv = G("bankPrev");
+  G("bankArrow").style.display = features.everyday ? "block" : "none";
+  if (!features.everyday) {
+    pv.innerHTML = '<div class="bl"><div class="bli">&#x1F512;</div><div class="blm">Your teacher will unlock banking when it\'s time</div></div>';
+    return;
+  }
+  var evBal = "$" + balances.everyday.toFixed(2);
+  var svBal = "$" + balances.savings.toFixed(2);
+  var savH = features.savings ? '<div class="bti">&#x1FAD0;</div><div class="bta">' + svBal + '</div><div class="btl">Savings</div>' : '<div style="font-size:18px;margin-bottom:2px;">&#x1F512;</div><div class="btl">Savings locked</div>';
+  var savC = features.savings ? "openBankTx('savings')" : "";
+  var nudge = nudges.bankBalance ? '<div class="nudge-banner"><span class="nudge-banner-ico">&#x1F4B0;</span><span>You earned $300 from your kickoff quiz \u2014 what\'ll you do with it?</span></div>' : '';
+  pv.innerHTML = nudge
+    + '<div class="ba"><div class="bt ev" onclick="openBankTx(\'everyday\')"><div class="bti">&#x1F353;</div><div class="bta">' + evBal + '</div><div class="btl">Everyday</div></div><div class="bt sv" onclick="' + savC + '">' + savH + '</div></div>'
+    + '<button class="ob" onclick="openBankAccounts()">Open banking</button>';
+}
+
+function renderJobPrev() {
+  var pv = G("jobPrev"); if (!pv) return;
+  if (!currentJob) {
+    pv.innerHTML = '<div class="jce"><div class="jci">&#x1F4BC;</div><div class="jcm">You don\'t have a job yet. Find one in the marketplace!</div><button class="ob" onclick="openMarket(\'jobs\')">Find a job &#8594;</button></div>';
+    return;
+  }
+  pv.innerHTML = '<div class="jcf"><div class="jct"><div class="ji" style="background:' + currentJob.c + '">' + currentJob.ico + '</div><div><div class="jtt">' + currentJob.t + '</div><div class="jw">' + currentJob.w + '</div></div></div><div class="jnp"><span class="jnl">Next payday</span><span class="jna">Mon 31 Mar</span></div></div>';
+}
+
+function renderMarketPrev() {
+  var pv = G("marketPrev");
+  if (!pv) return;
+  var ownedIds = Object.keys(ownedWearables).filter(function(k){return ownedWearables[k];});
+  if (ownedIds.length === 0) {
+    // Pre-purchase state: nudge banner + 3 product previews
+    var bal = balances.everyday;
+    var nudge = nudges.marketplaceBanner
+      ? '<div class="nudge-banner"><span class="nudge-banner-ico">&#x1F4B8;</span><span>You\'ve got $' + bal.toFixed(0) + ' \u2014 treat yourself to something</span></div>'
+      : '';
+    // Pick 3 featured items - first beanie, first sunnies, first hoodie
+    var feat = ["w_blue_beanie","w_aviators","w_hoodie_red"]
+      .map(function(id){return AV_WEARABLES.filter(function(w){return w.id===id;})[0];})
+      .filter(Boolean);
+    var strip = feat.map(function(w){
+      var price = wearablePrice(w);
+      var bg = wearableBg(w);
+      var ico = wearableIcon(w);
+      return '<div class="mkt-prev" onclick="openMarket(\'shop\')"><div class="mkt-prev-img" style="background:' + bg + '">' + ico + '</div><div class="mkt-prev-name">' + w.name + '</div><div class="mkt-prev-price">$' + price + '</div></div>';
+    }).join('');
+    pv.innerHTML = nudge + '<div class="mkt-strip">' + strip + '</div><button class="ob" onclick="openMarket(\'shop\')">Browse the shop &#8594;</button>';
+  } else {
+    // Post-purchase state: wardrobe strip
+    var items = ownedIds.slice(0, 4).map(function(id){
+      var w = AV_WEARABLES.filter(function(x){return x.id===id;})[0];
+      if (!w) return "";
+      var overrides = {};
+      if (w.slot==="hat") { overrides.top = w.top; overrides.hatColor = w.hatColor; }
+      if (w.slot==="accessories") { overrides.accessories = w.accessories; overrides.accessoriesColor = w.accessoriesColor; overrides.accessoriesProbability = 100; }
+      if (w.slot==="clothing") { overrides.clothing = w.clothing; overrides.clothesColor = w.clothesColor; }
+      return '<div class="wardrobe-item"><img src="' + previewUrl(overrides) + '" alt="' + w.name + '"></div>';
+    }).join('');
+    var more = ownedIds.length > 4 ? '<div class="wardrobe-more">+' + (ownedIds.length - 4) + '</div>' : '';
+    pv.innerHTML = '<div style="font-family:Mulish,sans-serif;font-size:11px;font-weight:800;color:#888;letter-spacing:0.4px;text-transform:uppercase;margin-bottom:8px;">Your wardrobe</div>'
+      + '<div class="wardrobe-strip">' + items + more + '</div>'
+      + '<button class="ob" onclick="openMarket(\'shop\')">Keep shopping &#8594;</button>';
+  }
+}
+
+// Helpers for marketplace card previews
+function wearablePrice(w) {
+  if (w.slot === "hat") return 30;
+  if (w.slot === "accessories") return 30;
+  if (w.slot === "clothing") return 60;
+  return 30;
+}
+function wearableBg(w) {
+  if (w.slot === "hat") {
+    if (w.hatColor === "65c9ff") return "#dbf1ff";
+    if (w.hatColor === "ff488e") return "#fde8f5";
+    if (w.hatColor === "a7ffc4") return "#e8fde8";
+    if (w.hatColor === "ff5c5c") return "#ffe8e8";
+  }
+  if (w.slot === "accessories") return "#ededed";
+  if (w.slot === "clothing") {
+    if (w.clothesColor === "ff5c5c") return "#ffe8e8";
+    if (w.clothesColor === "65c9ff") return "#dbf1ff";
+    return "#f0f0f0";
+  }
+  return "#f0f0f0";
+}
+function wearableIcon(w) {
+  if (w.slot === "hat") {
+    if (w.hatColor === "65c9ff") return "\u{1F9E2}";
+    if (w.hatColor === "ff488e") return "\u{1F3A9}";
+    if (w.hatColor === "a7ffc4") return "\u{1FA96}";
+    return "\u{1F3A9}";
+  }
+  if (w.slot === "accessories") return "\u{1F576}\u{FE0F}";
+  if (w.slot === "clothing") return "\u{1F455}";
+  return "\u{1F455}";
+}
+
+function openBankAccounts() {
+  if (!features.everyday) return;
+  bankView = "accounts";
+  if (nudges.bankBalance) { nudges.bankBalance = false; renderBankPrev(); }
+  G("bankTitle").textContent = "Banking";
+  renderBankModal();
+  G("bankOv").classList.remove("hidden");
+}
+
+function openBankTx(acct) {
+  if (!features.everyday) return;
+  bankView = acct;
+  if (nudges.bankBalance) { nudges.bankBalance = false; renderBankPrev(); }
+  G("bankTitle").textContent = acct === "everyday" ? "Everyday account" : "Savings account";
+  renderBankModal();
+  G("bankOv").classList.remove("hidden");
+}
+
+function renderBankModal() {
+  var body = G("bankBody"), foot = G("bankFoot");
+  if (bankView === "everyday" || bankView === "savings") {
+    var isEv = bankView === "everyday";
+    var txs = isEv ? TX_EV : TX_SV;
+    var bal = "$" + (isEv ? balances.everyday : balances.savings).toFixed(2);
+    var ic = isEv ? "&#x1F353;" : "&#x1FAD0;";
+    var lbl = isEv ? "EVERYDAY" : "SAVINGS";
+    // Footer: Back button + Pay (+ Transfer if everyday)
+    foot.innerHTML = '<button class="bkftab active" onclick="openBankAccounts()">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back</button>'
+      + '<button class="bkftab" onclick="bankView=\'pay\';renderBankModal()">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>Pay</button>'
+      + (isEv ? '<button class="bkftab" onclick="bankView=\'transfer\';renderBankModal()">'
+        + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3L4 7l4 4M4 7h16M16 21l4-4-4-4m4 4H4"/></svg>Transfer</button>' : '');
+    var txList = txs.length === 0
+      ? '<div class="av-empty"><div class="av-empty-ico">\u{1F4DD}</div>No transactions yet</div>'
+      : txs.map(function(tx) {
+          return '<div class="txi">'
+            + '<div class="txil"><div class="txic ' + tx.t + '">' + tx.ico + '</div>'
+            + '<div class="apid"><div class="txin">' + tx.n + '</div><div class="txid">' + tx.d + '</div></div></div>'
+            + '<span class="txa ' + (tx.t === "in" ? "cr" : "db") + '">' + tx.a + '</span>'
+            + '</div>';
+        }).join('');
+    body.innerHTML = '<div class="txh ' + bankView + '">'
+      + '<div class="txh-ic">' + ic + '</div>'
+      + '<div><div class="txh-lbl">' + lbl + '</div><div class="txb">' + bal + '</div></div>'
+      + '</div>'
+      + '<div class="txl">Recent transactions</div>'
+      + txList;
+    return;
+  }
+  // Accounts / Pay / Transfer views get standard 3-tab footer
+  var activeTab = bankView === "accounts" ? "accounts" : bankView;
+  foot.innerHTML = '<button class="bkftab' + (activeTab==="accounts"?" active":"") + '" onclick="openBankAccounts()">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="22" height="13" rx="2"/><path d="M1 10h22"/><circle cx="12" cy="15" r="1.5" fill="currentColor"/></svg>Accounts</button>'
+    + '<button class="bkftab' + (activeTab==="pay"?" active":"") + '" onclick="bankView=\'pay\';renderBankModal()">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>Pay</button>'
+    + '<button class="bkftab' + (activeTab==="transfer"?" active":"") + '" onclick="bankView=\'transfer\';renderBankModal()">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3L4 7l4 4M4 7h16M16 21l4-4-4-4m4 4H4"/></svg>Transfer</button>';
+  renderBankTabView();
+}
+
+function renderBankFoot(active) {
+  G("bankFoot").innerHTML =
+    '<button class="bkftab' + (active==="accounts"?" active":"") + '" onclick="openBankAccounts()">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="22" height="13" rx="2"/><path d="M1 10h22"/><circle cx="12" cy="15" r="1.5" fill="currentColor"/></svg>Accounts</button>'
+    + '<button class="bkftab' + (active==="pay"?" active":"") + '" onclick="bankView=\'pay\';renderBankTabView()">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>Pay</button>'
+    + '<button class="bkftab' + (active==="transfer"?" active":"") + '" onclick="bankView=\'transfer\';renderBankTabView()">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3L4 7l4 4M4 7h16M16 21l4-4-4-4m4 4H4"/></svg>Transfer</button>';
+}
+
+function renderBankTabView() {
+  var body = G("bankBody");
+  if (bankView === "accounts") {
+    G("bankTitle").textContent = "Banking";
+    var evBal = "$" + balances.everyday.toFixed(2);
+    var svBal = "$" + balances.savings.toFixed(2);
+    var totalBal = "$" + (balances.everyday + balances.savings).toFixed(2);
+    var savingsCard;
+    if (features.savings) {
+      savingsCard = '<div class="bac sv" onclick="openBankTx(\'savings\')">'
+        + '<div class="baca">' + svBal + '</div>'
+        + '<div class="bacl">Savings</div>'
+        + '</div>';
+    } else {
+      savingsCard = '<div class="bac sv-locked">'
+        + '<div class="locked-inner">'
+        + '<div class="locked-icon">&#x1F512;</div>'
+        + '<div class="locked-txt">Savings locked</div>'
+        + '</div></div>';
+    }
+    body.innerHTML = '<div class="bb-wrap"><div class="bb">' + totalBal + '</div><div class="bbs">Available funds</div></div>'
+      + '<div class="bam">'
+      + '<div class="bac ev" onclick="openBankTx(\'everyday\')">'
+      + '<div class="baca">' + evBal + '</div>'
+      + '<div class="bacl">Everyday</div>'
+      + '</div>'
+      + savingsCard
+      + '</div>';
+  } else if (bankView === "pay") {
+    G("bankTitle").textContent = "Pay someone";
+    body.innerHTML = '<div class="pform">'
+      + '<label class="pl">Pay to</label>'
+      + '<select class="pi"><option>Select a classmate...</option><option>Hermione Granger</option><option>Ron Weasley</option><option>Neville Longbottom</option></select>'
+      + '<label class="pl">Amount</label>'
+      + '<input class="pi" type="number" placeholder="$0.00">'
+      + '<label class="pl">Note (optional)</label>'
+      + '<input class="pi" type="text" placeholder="What is this for?">'
+      + '<button class="ps">Confirm payment</button>'
+      + '</div>';
+  } else if (bankView === "transfer") {
+    G("bankTitle").textContent = "Transfer";
+    if (features.savings) {
+      body.innerHTML = '<div class="pform">'
+        + '<label class="pl">From</label>'
+        + '<select class="pi"><option>Everyday ($500.00)</option><option>Savings ($61.20)</option></select>'
+        + '<label class="pl">To</label>'
+        + '<select class="pi"><option>Savings ($61.20)</option><option>Everyday ($500.00)</option></select>'
+        + '<label class="pl">Amount</label>'
+        + '<input class="pi" type="number" placeholder="$0.00">'
+        + '<button class="ps">Confirm transfer</button>'
+        + '</div>';
+    } else {
+      body.innerHTML = '<div class="sl"><div class="sli">&#x1F512;</div><div class="slm">Transfers unlock when your teacher teaches the savings lesson</div></div>';
+    }
+  }
+}
+
+function openMarket(section) {
+  if (nudges.marketplaceBanner) { nudges.marketplaceBanner = false; renderMarketPrev(); }
+  mktSection = section || "shop"; mktCat = "All"; checkedSubs = {};
+  renderMarket();
+  G("marketOv").classList.remove("hidden");
+}
+
+function switchMktSection(s) { mktSection = s; mktCat = "All"; checkedSubs = {}; renderMarket(); }
+function filterShop(cat) { mktCat = cat; checkedSubs = {}; renderMarket(); }
+function toggleSub(s) { checkedSubs[s] = !checkedSubs[s]; renderMarket(); }
+
+function renderMarket() {
+  var body = G("marketBody");
+  var sc = '<div class="msc">'
+    + '<div class="mscc' + (mktSection==="shop"?" active":"") + '" onclick="switchMktSection(\'shop\')"><div class="msci">&#x1F3EA;</div><div><div class="msct">Shop</div><div class="mscs">Buy clothing and accessories</div></div></div>'
+    + '<div class="mscc' + (mktSection==="services"?" active":"") + (!features.services?" lk":"") + '" onclick="' + (features.services?"switchMktSection('services')":"") + '"><div class="msci">&#x1F527;</div><div><div class="msct">Services</div><div class="mscs">Trade services with classmates</div></div>' + (!features.services?'<div class="mscl">&#x1F512;</div>':'') + '</div>'
+    + '<div class="mscc' + (mktSection==="jobs"?" active":"") + (!features.careers?" lk":"") + '" onclick="' + (features.careers?"switchMktSection('jobs')":"") + '"><div class="msci">&#x1F4BC;</div><div><div class="msct">Jobs</div><div class="mscs">Find a career</div></div>' + (!features.careers?'<div class="mscl">&#x1F512;</div>':'') + '</div>'
+    + '</div>';
+
+  if (mktSection === "shop") {
+    var cats = ["All","Clothing","Accessories"];
+    var subs = SUBCATS[mktCat] || [];
+    var filtered = SHOP.filter(function(i) { return mktCat === "All" || i.cat === mktCat; });
+    var activeSubs = Object.keys(checkedSubs).filter(function(k) { return checkedSubs[k]; });
+    if (activeSubs.length) filtered = filtered.filter(function(i) { return checkedSubs[i.sub]; });
+    var catBtns = cats.map(function(c) { return '<button class="mctb' + (c===mktCat?" active":"") + '" onclick="filterShop(\'' + c + '\')">' + c + '</button>'; }).join('');
+    var cbRows = subs.map(function(s) { return '<div class="mcbr" onclick="toggleSub(\'' + s.n + '\')"><div class="mcb' + (checkedSubs[s.n]?" on":"") + '">' + (checkedSubs[s.n]?"\u2713":"") + '</div><span class="mcbl">' + s.n + ' (' + s.c + ')</span></div>'; }).join('');
+    var prods = filtered.map(function(it) {
+      var owned = ownedWearables[it.wId];
+      var w = AV_WEARABLES.filter(function(x){return x.id===it.wId;})[0];
+      var prevOverrides = {};
+      var prevImg = "";
+      if (w) {
+        if (w.slot==="hat") { prevOverrides.top = w.top; prevOverrides.hatColor = w.hatColor; }
+        if (w.slot==="accessories") { prevOverrides.accessories = w.accessories; prevOverrides.accessoriesColor = w.accessoriesColor; prevOverrides.accessoriesProbability = 100; }
+        if (w.slot==="clothing") { prevOverrides.clothing = w.clothing; prevOverrides.clothesColor = w.clothesColor; }
+        prevImg = '<img src="' + previewUrl(prevOverrides) + '" style="width:100%;height:100%;object-fit:cover;border-radius:0 0 16px 16px;" alt="' + it.n + '">';
+      } else {
+        prevImg = it.ico;
+      }
+      var stag = owned ? '<div class="msl" style="background:#1a8c4e;">&#x2713; Owned</div>' : (it.sale ? '<div class="msl">&#x1F3F7; ' + Math.round((1-it.sale/it.p)*100) + '% off</div>' : '');
+      var prH = it.sale ? '<span class="orig">$' + it.p + '.00</span> $' + it.sale + '.00' : '$' + it.p + '.00';
+      var btn = owned
+        ? '<button class="mbb" style="background:#f6fbf0;border-color:#b8e0a0;color:#1a8c4e;" disabled>Owned</button>'
+        : '<button class="mbb" onclick="openBuy(\'' + it.wId + '\')">&#x1F6CD; ' + prH + '</button>';
+      return '<div class="mprd">' + stag + '<div class="mpri" style="background:' + it.bg + '">' + prevImg + '</div><div class="mprb"><div class="mprn">' + it.n + '</div>' + btn + '</div></div>';
+    }).join('');
+    body.innerHTML = sc + '<div class="mcon"><div class="mct">' + catBtns + '</div><div class="msrt">Price: Low to high &#x21C5;</div></div>'
+      + '<div class="mlay"><div class="msb"><div class="msbt">Subcategories</div>' + cbRows + '</div><div class="mgr">' + prods + '</div></div>';
+  } else if (mktSection === "services") {
+    var svcs = SERVICES.map(function(s) { return '<div class="svi"><div class="svic">' + s.ico + '</div><div><div class="svn">' + s.n + '</div><div class="svd">' + s.d + '</div><div><span class="svp">' + s.p + '</span><span class="svf">' + s.f + '</span></div></div></div>'; }).join('');
+    body.innerHTML = sc + '<div class="svg">' + svcs + '</div>';
+  } else {
+    var jcards = JOBS.map(function(j, i) {
+      var hired = currentJob && currentJob.t === j.t;
+      return '<div class="jit' + (hired?" hired":"") + '" onclick="' + (hired?"":"openApply("+i+")") + '">' + (hired?'<div class="jhb">Your job</div>':'') + '<div class="jiti">' + j.ico + '</div><div class="jitn">' + j.t + '</div><div class="jitw">' + j.w + '</div><div class="jitd">' + j.d + '</div>' + (hired?'':'<button class="jab" onclick="event.stopPropagation();openApply(' + i + ')">Apply &#8594;</button>') + '</div>';
+    }).join('');
+    body.innerHTML = sc + '<div class="jgr">' + jcards + '</div>';
+  }
+}
+
+function openApply(idx) {
+  applyingJob = JOBS[idx]; applyAnswered = false;
+  G("applyBody").innerHTML = '<div class="aoi">' + applyingJob.ico + '</div><div class="aon">' + applyingJob.t + '</div><div class="aow">' + applyingJob.w + '</div>'
+    + '<span class="aol">Interview question</span><div class="aoq">Why do you want to be a ' + applyingJob.t + '?</div>'
+    + '<div class="aoo" id="ao0" onclick="selAOpt(0)">I am good at it and enjoy it</div>'
+    + '<div class="aoo" id="ao1" onclick="selAOpt(1)">It pays the most money</div>'
+    + '<div class="aoo" id="ao2" onclick="selAOpt(2)">I want to help my class</div>'
+    + '<button class="aos" id="aoSub" disabled onclick="submitApply()">Submit application</button>';
+  G("applyOv").classList.remove("hidden");
+}
+
+function selAOpt(i) {
+  [0,1,2].forEach(function(j) { var o = G("ao"+j); if(o) o.classList.toggle("sel", j===i); });
+  G("aoSub").disabled = false; applyAnswered = true;
+}
+
+function submitApply() {
+  if (!applyAnswered) return; currentJob = applyingJob;
+  G("applyBody").innerHTML = '<div class="asuc"><div class="asuci">' + applyingJob.ico + '</div><div class="asuct">You are hired! &#x1F389;</div><div class="asucs">Congratulations! You are now a ' + applyingJob.t + '. Your first payday is Monday 31 Mar.</div><button class="asucb" onclick="closeModal(\'applyOv\');closeModal(\'marketOv\');renderJobPrev();renderMarket();">Back to dashboard</button></div>';
+}
+
+// ===== Purchase flow =====
+function openBuy(wId) {
+  var item = SHOP.filter(function(i){return i.wId===wId;})[0];
+  if (!item || ownedWearables[wId]) return;
+  pendingPurchase = item;
+  var w = AV_WEARABLES.filter(function(x){return x.id===wId;})[0];
+  var prevOverrides = {};
+  var prevImg = "";
+  if (w) {
+    if (w.slot==="hat") { prevOverrides.top = w.top; prevOverrides.hatColor = w.hatColor; }
+    if (w.slot==="accessories") { prevOverrides.accessories = w.accessories; prevOverrides.accessoriesColor = w.accessoriesColor; prevOverrides.accessoriesProbability = 100; }
+    if (w.slot==="clothing") { prevOverrides.clothing = w.clothing; prevOverrides.clothesColor = w.clothesColor; }
+    prevImg = '<img src="' + previewUrl(prevOverrides) + '" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" alt="' + item.n + '">';
+  } else {
+    prevImg = item.ico;
+  }
+  var price = item.sale || item.p;
+  var canAfford = balances.everyday >= price;
+  var newBal = (balances.everyday - price).toFixed(2);
+  G("buyTitle").textContent = "Confirm purchase";
+  G("buyBody").innerHTML = '<div class="buy-modal-card">'
+    + '<div class="buy-modal-img" style="background:' + item.bg + '">' + prevImg + '</div>'
+    + '<div class="buy-modal-name">' + item.n + '</div>'
+    + '<div class="buy-modal-price">$' + price.toFixed(2) + '</div>'
+    + '<div class="buy-modal-bal' + (canAfford ? '' : ' afford-no') + '">'
+      + (canAfford
+          ? 'Your balance: <strong>$' + balances.everyday.toFixed(2) + '</strong> &middot; After: $' + newBal
+          : 'Not enough funds &middot; Your balance: <strong>$' + balances.everyday.toFixed(2) + '</strong>')
+    + '</div>'
+    + '<div class="buy-modal-actions">'
+    + '<button class="buy-modal-cancel" onclick="closeModal(\'buyOv\')">Cancel</button>'
+    + '<button class="buy-modal-confirm"' + (canAfford ? '' : ' disabled') + ' onclick="completePurchase()">Confirm</button>'
+    + '</div></div>';
+  G("buyOv").classList.remove("hidden");
+}
+
+function completePurchase() {
+  if (!pendingPurchase) return;
+  var item = pendingPurchase;
+  var price = item.sale || item.p;
+  if (balances.everyday < price) return;
+  // Deduct, add to inventory, log transaction
+  balances.everyday = +(balances.everyday - price).toFixed(2);
+  ownedWearables[item.wId] = true;
+  TX_EV.unshift({ico:"&#x1F6CD;",t:"out",n:item.n,d:"Today",a:"-$" + price.toFixed(2)});
+  // Show success state in modal
+  G("buyTitle").textContent = "Purchase complete";
+  var w = AV_WEARABLES.filter(function(x){return x.id===item.wId;})[0];
+  G("buyBody").innerHTML = '<div class="buy-success">'
+    + '<div class="buy-success-ico">&#x1F389;</div>'
+    + '<div class="buy-success-t">' + item.n + ' is yours!</div>'
+    + '<div class="buy-success-s">Added to your wardrobe. Want to wear it now?</div>'
+    + '<div class="buy-success-actions">'
+    + '<button class="buy-success-equip" onclick="equipPurchasedAndClose(\'' + item.wId + '\',\'' + (w?w.slot:'') + '\')">Wear it now</button>'
+    + '<button class="buy-success-keep" onclick="closeModal(\'buyOv\');renderMarket();renderMarketPrev();renderBankPrev();">Keep shopping</button>'
+    + '</div></div>';
+  pendingPurchase = null;
+}
+
+function equipPurchasedAndClose(wId, slot) {
+  if (slot) avatar.equipped[slot] = wId;
+  renderAllAvatars();
+  closeModal("buyOv");
+  closeModal("marketOv");
+  renderMarketPrev();
+  renderBankPrev();
+  renderMarket();
+}
+
+function openQuizzes() {
+
+  renderQuizzesList();
+  G("quizzesOv").classList.remove("hidden");
+}
+
+function backToQuizList() {
+  closeModal("quizOv");
+  renderQuizzesList();
+}
+
+function renderQuizzesList() {
+  var body = G("quizzesBody");
+  var html = "";
+
+  html += '<div class="secdiv"><div class="sectitle">Practice quizzes</div><div class="secsub" style="font-size:13px;color:#888;margin-bottom:14px;">Earn $1 for every correct answer</div>';
+  html += '<div class="qzgrid">';
+  PRACTICE_QUIZZES.forEach(function(qz, idx) {
+    var done = completedQ[qz.id];
+    var earned = done ? (completedQ[qz.id + "_c"] || 0) : 0;
+    var nc = qz.qs.length;
+    var startHere = (idx === 0 && nudges.quizStartHere && !done) ? '<div class="qz-start-here">&#x1F31F; Start here</div>' : '';
+    html += '<div class="qzcard' + (done?" done":"") + '"' + (done?"":" onclick=\"startQuiz(\'' + qz.id + '\',\'practice\',\'\')\"") + '>';
+    html += startHere;
+    html += '<div class="qzci">' + qz.ico + '</div>';
+    html += '<div class="qzcn">' + qz.title + '</div>';
+    html += '<div class="qzcs">' + nc + ' questions &middot; up to $' + nc + ' to earn</div>';
+    if (done) {
+      html += '<div class="qzclk"><span style="font-size:11px;font-weight:800;color:#3b6d11;background:#c0dd97;padding:2px 8px;border-radius:20px;">Done</span><span style="font-size:12px;font-weight:800;color:#1a8c4e;">+$' + earned + '.00 earned</span></div>';
+    } else {
+      html += '<div class="qzcbtn">Start quiz &#8594;</div>';
+    }
+    html += '</div>';
+  });
+  html += '</div></div>';
+
+  if (features.unitQuizzes) {
+    UNIT_QUIZZES.forEach(function(unit) {
+      html += '<div class="secdiv"><div class="sectitle">' + unit.name + '</div><div class="secsub" style="font-size:13px;color:#888;margin-bottom:14px;">Earn $1 for every correct answer</div>';
+      html += '<div class="qzgrid">';
+      unit.quizzes.forEach(function(qz) {
+        var done = completedQ[qz.id];
+        var earned = done ? (completedQ[qz.id + "_c"] || 0) : 0;
+        var nc = qz.qs.length;
+        html += '<div class="qzcard' + (done?" done":"") + '"' + (done?"":" onclick=\"startQuiz(\'' + qz.id + '\',\'unit\',\'' + unit.id + '\')\"") + '>';
+        html += '<div class="qzci">' + qz.ico + '</div>';
+        html += '<div class="qzcn">' + qz.title + '</div>';
+        html += '<div class="qzcs">' + nc + ' questions &middot; up to $' + nc + ' to earn</div>';
+        if (done) {
+          html += '<div class="qzclk"><span style="font-size:11px;font-weight:800;color:#3b6d11;background:#c0dd97;padding:2px 8px;border-radius:20px;">Done</span><span style="font-size:12px;font-weight:800;color:#1a8c4e;">+$' + earned + '.00 earned</span></div>';
+        } else {
+          html += '<div class="qzcbtn">Start quiz &#8594;</div>';
+        }
+        html += '</div>';
+      });
+      html += '</div></div>';
+    });
+  } else {
+    html += '<div class="lkbox"><div class="lkboxi">&#x1F512;</div><div class="lkboxt">Unit quizzes locked</div><div class="lkboxs">Your teacher will unlock unit quizzes when you cover them in class</div></div>';
+  }
+
+  body.innerHTML = html;
+}
+
+function startQuiz(id, source, unitId) {
+  if (nudges.quizStartHere) nudges.quizStartHere = false;
+  currentQuiz = null; qCorrect = 0;
+  if (source === "practice") {
+    for (var i = 0; i < PRACTICE_QUIZZES.length; i++) {
+      if (PRACTICE_QUIZZES[i].id === id) { currentQuiz = PRACTICE_QUIZZES[i]; break; }
+    }
+  } else {
+    for (var u = 0; u < UNIT_QUIZZES.length; u++) {
+      if (UNIT_QUIZZES[u].id === unitId) {
+        for (var q = 0; q < UNIT_QUIZZES[u].quizzes.length; q++) {
+          if (UNIT_QUIZZES[u].quizzes[q].id === id) { currentQuiz = UNIT_QUIZZES[u].quizzes[q]; break; }
+        }
+      }
+    }
+  }
+  if (!currentQuiz) return;
+  qIdx = 0; qAnswered = false;
+  G("quizTitle").textContent = currentQuiz.title;
+  G("qProg").style.width = "0%";
+  G("quizOv").classList.remove("hidden");
+  renderQuestion();
+}
+
+function renderQuestion() {
+  if (qIdx >= currentQuiz.qs.length) { showReward(); return; }
+  var q = currentQuiz.qs[qIdx]; qAnswered = false;
+  G("qProg").style.width = Math.round(qIdx / currentQuiz.qs.length * 100) + "%";
+  var earnBar = qCorrect > 0 ? '<div style="text-align:right;font-size:12px;font-weight:700;color:#1a8c4e;margin-bottom:12px;">$' + qCorrect + '.00 earned so far</div>' : '<div style="margin-bottom:24px;"></div>';
+  var html = earnBar + '<div class="qq">' + q.q + '</div><div class="qog">';
+  q.opts.forEach(function(o, i) {
+    html += '<div class="qo" id="qo' + i + '" onclick="selectOpt(' + i + ')"><div class="qoi">' + o.ico + '</div><div class="qot">' + o.t + '</div><div class="qos">' + o.s + '</div></div>';
+  });
+  html += '</div><div id="qFb"></div>';
+  G("quizBody").innerHTML = html;
+  var nb = document.createElement("button");
+  nb.className = "qnb"; nb.id = "qNext"; nb.disabled = true;
+  nb.textContent = qIdx === currentQuiz.qs.length - 1 ? "Finish" : "Next";
+  nb.onclick = function() { qIdx++; renderQuestion(); };
+  G("quizBody").appendChild(nb);
+}
+
+function selectOpt(i) {
+  if (qAnswered) return; qAnswered = true;
+  var q = currentQuiz.qs[qIdx];
+  var correct = q.opts[i].ok;
+  if (correct) qCorrect++;
+  q.opts.forEach(function(o, j) {
+    var el = G("qo" + j);
+    if (o.ok) el.classList.add("ok");
+    else if (j === i) el.classList.add("no");
+  });
+  var fb = G("qFb");
+  fb.className = "qfb " + (correct ? "ok" : "no");
+  fb.textContent = correct ? "Correct! +$1.00" : 'Not quite - the right answer is "' + q.opts.filter(function(o){return o.ok;})[0].t + '"';
+  G("qNext").disabled = false;
+}
+
+function showReward() {
+  completedQ[currentQuiz.id] = true;
+  completedQ[currentQuiz.id + "_c"] = qCorrect;
+  G("qProg").style.width = "100%";
+  var total = currentQuiz.qs.length;
+  var pct = Math.round(qCorrect / total * 100);
+  // Deposit earnings into Everyday account if banking is unlocked
+  if (qCorrect > 0 && features.everyday) {
+    balances.everyday = +(balances.everyday + qCorrect).toFixed(2);
+    TX_EV.unshift({ico:"&#x1F4DD;",t:"in",n:currentQuiz.title,d:"Today",a:"+$" + qCorrect.toFixed(2)});
+  }
+  var rewardLine = features.everyday
+    ? '&#x1F4B5; +$' + qCorrect + '.00 added to your bank'
+    : '&#x1F4B5; +$' + qCorrect + '.00 earned';
+  G("quizBody").innerHTML = '<div class="qrs"><div class="qrsi">' + (pct===100?"&#x1F3C6;":"&#x1F389;") + '</div><div class="qrst">Quiz complete!</div><div class="qrss">' + (pct===100?"Perfect score! &#x1F31F;":pct>=50?"Great effort!":"Keep practising!") + ' You got ' + qCorrect + ' of ' + total + ' correct.</div><div class="qrsm">' + rewardLine + '</div><button class="qrsb" onclick="backToQuizList()">Back to quizzes</button></div>';
+  updateQDot();
+  renderDashQuizzes();
+  renderBankPrev();
+  renderMarketPrev();
+}
+
+function updateQDot() {
+  var all = PRACTICE_QUIZZES.map(function(q) { return q.id; });
+  if (features.unitQuizzes) {
+    UNIT_QUIZZES.forEach(function(u) { u.quizzes.forEach(function(q) { all.push(q.id); }); });
+  }
+  var rem = all.filter(function(id) { return !completedQ[id]; }).length;
+  ["navQDot","dashQDot"].forEach(function(id) {
+    var d = G(id); if (d) { d.textContent = rem; d.style.display = rem===0?"none":""; }
+  });
+}
+
+function renderDashQuizzes() {
+  var all = PRACTICE_QUIZZES.slice();
+  if (features.unitQuizzes) {
+    UNIT_QUIZZES.forEach(function(u) { u.quizzes.forEach(function(q) { all.push(q); }); });
+  }
+  var pending = all.filter(function(q) { return !completedQ[q.id]; }).slice(0, 4);
+  var done = all.filter(function(q) { return completedQ[q.id]; });
+  var html = "";
+  if (pending.length) {
+    html += '<div class="qsl">Up next</div><div class="ql">';
+    pending.forEach(function(qz) {
+      html += '<div class="qr" onclick="openQuizzes()"><div class="qi p">' + qz.ico + '</div><div class="qm"><div class="qtit">' + qz.title + '</div><div class="qsub">Up to $' + qz.qs.length + ' to earn</div></div><span class="qrew">$1/q</span></div>';
+    });
+    html += '</div>';
+  }
+  if (done.length) {
+    html += '<div class="qsl" style="margin-top:10px;">Completed</div><div class="ql">';
+    done.forEach(function(qz) {
+      var earned = completedQ[qz.id + "_c"] || 0;
+      html += '<div class="qr done"><div class="qi g">&#x2705;</div><div class="qm"><div class="qtit">' + qz.title + '</div><div class="qsub">$' + earned + '.00 earned</div></div><span class="qdone">Done</span></div>';
+    });
+    html += '</div>';
+  }
+  G("dashQuizBody").innerHTML = html;
+  updateQDot();
+}
+
+// ===== AVATAR RENDERING =====
+function renderAllAvatars() {
+  var url = buildAvatarUrl();
+  ["heroAvImg","navAvImg","avPreviewImg"].forEach(function(id){
+    var el = G(id);
+    if (el) el.src = url;
+  });
+}
+
+// Helper: URL for a single-option preview tile (used in the picker grid)
+function previewUrl(overrides) {
+  var base = {
+    seed: avatar.seed,
+    skinColor: avatar.skinColor,
+    top: avatar.top,
+    hairColor: avatar.hairColor,
+    eyes: avatar.eyes,
+    eyebrows: avatar.eyebrows,
+    mouth: avatar.mouth,
+    clothing: avatar.clothing,
+    clothesColor: avatar.clothesColor,
+    accessoriesProbability: 0,
+    facialHairProbability: 0
+  };
+  Object.keys(overrides).forEach(function(k){ base[k] = overrides[k]; });
+  var qs = Object.keys(base).map(function(k){
+    return encodeURIComponent(k) + "=" + encodeURIComponent(base[k]);
+  }).join("&");
+  return AV_API + "?" + qs;
+}
+
+var AV_TABS = [
+  {id:"skin",label:"Skin"},
+  {id:"hair",label:"Hair"},
+  {id:"haircolor",label:"Hair \u00b7 Colour"},
+  {id:"eyes",label:"Eyes"},
+  {id:"eyebrows",label:"Brows"},
+  {id:"mouth",label:"Mouth"},
+  {id:"hat",label:"Hats"},
+  {id:"accessories",label:"Glasses"},
+  {id:"clothing",label:"Clothes"}
+];
+
+function openAvatarModal() {
+  if (nudges.avatar) {
+    nudges.avatar = false;
+    var n = G("avatarNudge"); if (n) n.style.display = "none";
+  }
+  avTab = "skin";
+  renderAvTabs();
+  renderAllAvatars();
+  renderAvBody();
+  G("avOv").classList.remove("hidden");
+}
+
+function switchAvTab(tab) {
+  avTab = tab;
+  renderAvTabs();
+  renderAvBody();
+}
+
+function renderAvTabs() {
+  G("avTabs").innerHTML = AV_TABS.map(function(t){
+    return '<button class="av-tab' + (t.id===avTab?" active":"") + '" onclick="switchAvTab(\'' + t.id + '\')">' + t.label + '</button>';
+  }).join('');
+}
+
+function renderAvBody() {
+  var body = G("avBody");
+  if (avTab === "skin") {
+    body.innerHTML = '<div class="av-section-label">Choose your skin tone</div><div class="av-opt-grid">'
+      + AV_SKIN.map(function(s){
+          return '<div class="av-opt' + (avatar.skinColor===s.id?" selected":"") + '" onclick="setAv(\'skinColor\',\'' + s.id + '\')">'
+            + '<div class="av-opt-swatch" style="background:#' + s.id + '"></div>'
+            + (avatar.skinColor===s.id ? '<div class="av-opt-check">\u2713</div>' : '')
+            + '</div>';
+        }).join('')
+      + '</div>';
+  } else if (avTab === "hair") {
+    var hatEquipped = !!avatar.equipped.hat;
+    var note = hatEquipped ? '<div class="av-empty" style="padding:10px 0 14px;">Take off your hat to change hair style</div>' : '';
+    body.innerHTML = note + '<div class="av-section-label">Choose a hairstyle</div><div class="av-opt-grid">'
+      + AV_HAIR.map(function(h){
+          var sel = !hatEquipped && avatar.top===h.id;
+          var lock = hatEquipped ? '<div class="av-opt-lock">\u{1F512}</div>' : '';
+          return '<div class="av-opt' + (sel?" selected":"") + '" onclick="' + (hatEquipped?"":"setAv('top','" + h.id + "')") + '">'
+            + '<img class="av-opt-img" src="' + previewUrl({top:h.id,accessoriesProbability:0,hatColor:avatar.hairColor}) + '" loading="lazy">'
+            + (sel ? '<div class="av-opt-check">\u2713</div>' : '')
+            + lock
+            + '</div>';
+        }).join('')
+      + '</div>';
+  } else if (avTab === "haircolor") {
+    body.innerHTML = '<div class="av-section-label">Hair colour</div><div class="av-opt-grid">'
+      + AV_HAIR_COLOUR.map(function(c){
+          return '<div class="av-opt' + (avatar.hairColor===c.id?" selected":"") + '" onclick="setAv(\'hairColor\',\'' + c.id + '\')">'
+            + '<div class="av-opt-swatch" style="background:#' + c.id + '"></div>'
+            + (avatar.hairColor===c.id ? '<div class="av-opt-check">\u2713</div>' : '')
+            + '</div>';
+        }).join('')
+      + '</div>';
+  } else if (avTab === "eyes") {
+    body.innerHTML = '<div class="av-section-label">Eyes</div><div class="av-opt-grid">'
+      + AV_EYES.map(function(e){
+          return '<div class="av-opt' + (avatar.eyes===e?" selected":"") + '" onclick="setAv(\'eyes\',\'' + e + '\')">'
+            + '<img class="av-opt-img" src="' + previewUrl({eyes:e}) + '" loading="lazy">'
+            + (avatar.eyes===e ? '<div class="av-opt-check">\u2713</div>' : '')
+            + '</div>';
+        }).join('')
+      + '</div>';
+  } else if (avTab === "eyebrows") {
+    body.innerHTML = '<div class="av-section-label">Eyebrows</div><div class="av-opt-grid">'
+      + AV_EYEBROWS.map(function(e){
+          return '<div class="av-opt' + (avatar.eyebrows===e?" selected":"") + '" onclick="setAv(\'eyebrows\',\'' + e + '\')">'
+            + '<img class="av-opt-img" src="' + previewUrl({eyebrows:e}) + '" loading="lazy">'
+            + (avatar.eyebrows===e ? '<div class="av-opt-check">\u2713</div>' : '')
+            + '</div>';
+        }).join('')
+      + '</div>';
+  } else if (avTab === "mouth") {
+    body.innerHTML = '<div class="av-section-label">Mouth</div><div class="av-opt-grid">'
+      + AV_MOUTH.map(function(m){
+          return '<div class="av-opt' + (avatar.mouth===m?" selected":"") + '" onclick="setAv(\'mouth\',\'' + m + '\')">'
+            + '<img class="av-opt-img" src="' + previewUrl({mouth:m}) + '" loading="lazy">'
+            + (avatar.mouth===m ? '<div class="av-opt-check">\u2713</div>' : '')
+            + '</div>';
+        }).join('')
+      + '</div>';
+  } else {
+    // Wearable slots: hat / accessories / clothing
+    var slot = avTab;
+    var items = AV_WEARABLES.filter(function(w){return w.slot===slot && ownedWearables[w.id];});
+    var slotLabel = {hat:"Hats & beanies",accessories:"Glasses & sunglasses",clothing:"Clothing"}[slot];
+    if (items.length === 0) {
+      body.innerHTML = '<div class="av-section-label">' + slotLabel + '</div>'
+        + '<div class="av-empty"><div class="av-empty-ico">\u{1F6CD}\u{FE0F}</div>You don\'t own any ' + slot + ' yet.<br>Buy some from the Marketplace!</div>';
+      return;
+    }
+    var isEquippedNone = !avatar.equipped[slot];
+    body.innerHTML = '<div class="av-section-label">' + slotLabel + '</div><div class="av-opt-grid">'
+      // "None" tile first
+      + '<div class="av-opt' + (isEquippedNone?" selected":"") + '" onclick="equipWearable(\'' + slot + '\',null)">'
+      + '<div class="av-opt-none">&#8856;</div>'
+      + (isEquippedNone ? '<div class="av-opt-check">\u2713</div>' : '')
+      + '</div>'
+      + items.map(function(w){
+          var eq = avatar.equipped[slot]===w.id;
+          var overrides = {};
+          if (slot==="hat") { overrides.top = w.top; overrides.hatColor = w.hatColor; }
+          if (slot==="accessories") { overrides.accessories = w.accessories; overrides.accessoriesColor = w.accessoriesColor; overrides.accessoriesProbability = 100; }
+          if (slot==="clothing") { overrides.clothing = w.clothing; overrides.clothesColor = w.clothesColor; }
+          return '<div class="av-opt' + (eq?" selected":"") + '" onclick="equipWearable(\'' + slot + '\',\'' + w.id + '\')">'
+            + '<img class="av-opt-img" src="' + previewUrl(overrides) + '" loading="lazy" title="' + w.name + '">'
+            + (eq ? '<div class="av-opt-check">\u2713</div>' : '')
+            + '</div>';
+        }).join('')
+      + '</div>';
+  }
+}
+
+function setAv(key, val) {
+  avatar[key] = val;
+  renderAllAvatars();
+  renderAvBody();
+}
+
+function equipWearable(slot, id) {
+  avatar.equipped[slot] = id;
+  renderAllAvatars();
+  renderAvBody();
+}
+
+renderAllAvatars();
+renderBankPrev();
+renderJobPrev();
+renderMarketPrev();
+renderDashQuizzes();
+// Sync teacher unlock button states with default features
+(function syncTeacherButtons(){
+  var map = {everyday:"btnEv",savings:"btnSv",services:"btnSvc",careers:"btnCar",unitQuizzes:"btnUQ"};
+  var labels = {everyday:"Everyday account",savings:"Savings account",services:"Services",careers:"Careers",unitQuizzes:"Unit quizzes"};
+  Object.keys(map).forEach(function(f){
+    var btn = G(map[f]);
+    if (btn && features[f]) {
+      btn.classList.add("on");
+      btn.textContent = "\u2713 " + labels[f];
+    }
+  });
+})();
+</script>
+</body>
+</html>
